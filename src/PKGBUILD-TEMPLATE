@@ -1,0 +1,12 @@
+pkgver() {
+    (git describe --long --tags || echo "$pkgver") | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+    cargo build --release
+}
+
+package() {
+    cd ..
+    cargo install --path . --root "$pkgdir"
+}
