@@ -51,7 +51,9 @@ fn main() {
 
         Command::new("makepkg")
                 .args(&args)
-                .output()
+                .spawn()
+                .unwrap()
+                .wait()
                 .expect("failed to build package");
     }
 }
