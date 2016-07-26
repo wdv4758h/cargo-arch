@@ -14,26 +14,7 @@ rustc-serialize = "0.3.19"
 toml = "0.1.30"
 
 [package.metadata.arch]
-pkgname = "cargo-arch"
-pkgver = "0.1.0"
-pkgrel = "1"
-pkgdesc = "Rust Arch Linux package packer"
 arch = ["x86_64"]
-url = ""
-license = ["Apache-2.0"]
-groups = []
-depends = []
-makedepends = []
-checkdepends = []
-provide = []
-conflicts = []
-replaces = []
-backup = []
-options = []
-source = []
-md5sum = []
-validpgpkeys = []
-maintainer = ["Chiu-Hsiang Hsu <wdv4758h@gmail.com>"]
 
 [profile.release]
 lto = true
