@@ -20,6 +20,7 @@ fn main() {
 
     let yml = load_yaml!("arguments.yml");
     let arguments = App::from_yaml(yml).get_matches();
+    let arguments = arguments.subcommand_matches("arch").unwrap();
     let build = arguments.value_of("build").unwrap();
     let install = arguments.is_present("install");
     let syncdeps = arguments.is_present("syncdeps");
