@@ -24,6 +24,7 @@ fn main() {
     let install = arguments.is_present("install");
     let syncdeps = arguments.is_present("syncdeps");
     let force = arguments.is_present("force");
+    let mksrcinfo = arguments.is_present("mksrcinfo");
 
     ////////////////////
     // Generate PKGBUILD
@@ -31,6 +32,14 @@ fn main() {
 
     let config = config::ArchConfig::new();
     config.generate_pkgbuild();
+
+    if mksrcinfo {
+        Command::new("mksrcinfo")
+                .spawn()
+                .unwrap()
+                .wait()
+                .expect("failed to generate .SRCINFO");
+    }
 
     ////////////////////
     // Build Package

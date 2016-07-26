@@ -29,3 +29,6 @@ args:
         help: Overwrite existing package
         long: force
         short: f
+    - mksrcinfo:
+        help: Run mksrcinfo
+        long: mksrcinfo
