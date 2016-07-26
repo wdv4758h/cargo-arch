@@ -34,3 +34,6 @@ source = []
 md5sum = []
 validpgpkeys = []
 maintainer = ["Chiu-Hsiang Hsu <wdv4758h@gmail.com>"]
+
+[profile.release]
+lto = true
