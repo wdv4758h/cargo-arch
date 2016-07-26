@@ -9,7 +9,7 @@ repository = "https://github.com/wdv4758h/cargo-arch/"
 keywords = ["cargo", "package"]
 
 [dependencies]
-clap = { version = "2.9.1", features = ["yaml"] }
+clap = { version = "2.9.3", features = ["yaml"] }
 rustc-serialize = "0.3.19"
 toml = "0.1.30"
 
