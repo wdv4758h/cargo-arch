@@ -1,0 +1,31 @@
+name: cargo-pack
+version: 0.1.0
+about: Rust Arch Linux package packer
+author: Chiu-Hsiang Hsu <wdv4758h@gmail.com>
+
+settings:
+    - ArgRequiredElseHelp
+    - ColoredHelp
+
+args:
+    - build:
+        help: whether build the source
+        long: build
+        short: b
+        takes_value: true
+        default_value: "true"
+        possible_values:
+            - true
+            - false
+    - install:
+        help: Install package after successful build
+        long: install
+        short: i
+    - syncdeps:
+        help: Install missing dependencies with pacman
+        long: syncdeps
+        short: s
+    - force:
+        help: Overwrite existing package
+        long: force
+        short: f

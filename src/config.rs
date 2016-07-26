@@ -247,7 +247,8 @@ impl ArchConfig {
         buffer.push_str("\n");
         buffer.push_str(include_str!("PKGBUILD-TEMPLATE"));
 
-        println!("{}", buffer);
+        let mut file = File::create("PKGBUILD").unwrap();
+        write!(file, "{}", buffer).unwrap();
 
         // mksrcinfo
     }
