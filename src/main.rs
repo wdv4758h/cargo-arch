@@ -8,6 +8,8 @@ extern crate rustc_serialize;
 use clap::App;
 
 use std::process::Command;
+use std::fs::File;
+use std::io::Write;
 
 pub mod config;
 
@@ -35,11 +37,13 @@ fn main() {
     config.generate_pkgbuild();
 
     if mksrcinfo {
-        Command::new("mksrcinfo")
-                .spawn()
-                .unwrap()
-                .wait()
-                .expect("failed to generate .SRCINFO");
+        let output = Command::new("makepkg")
+                             .args(&["--printsrcinfo"])
+                             .output()
+                             .expect("failed to generate .SRCINFO");
+
+        let mut file = File::create(".SRCINFO").unwrap();
+        file.write_all(&output.stdout).unwrap();
     }
 
     ////////////////////

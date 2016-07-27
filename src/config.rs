@@ -249,8 +249,6 @@ impl ArchConfig {
 
         let mut file = File::create("PKGBUILD").unwrap();
         write!(file, "{}", buffer).unwrap();
-
-        // mksrcinfo
     }
 }
 
