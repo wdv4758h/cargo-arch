@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ArchConfig","see `man PKGBUILD` and https://wiki.archlinux.org/index.php/PKGBUILD"],["CargoArch","data in [package.metadata.arch]"]]});

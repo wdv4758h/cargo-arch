@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CargoMetadata","data in [package.metadata]"]]});

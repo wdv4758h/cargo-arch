@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Cargo","data in Cargo.toml"],["CargoPackage","data in [package]"]],"trait":[["GeneratePackage","A trait for generate specific platform package's config"],["ToPackageConfig","A trait for making specific platform package config's settings"]]});
