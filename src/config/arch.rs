@@ -1,36 +1,11 @@
-use toml;
-
 use std::fs::File;
 use std::io::prelude::*;
 
+use toml;
 
-/// data in Cargo.toml
-#[derive(Clone, Debug, RustcDecodable)]
-pub struct Cargo {
-    pub package: CargoPackage,
-}
+use super::core::{Cargo, ToPackageConfig, GeneratePackage};
+use super::meta::CargoMetadata;
 
-/// data in [package]
-#[derive(Clone, Debug, RustcDecodable)]
-pub struct CargoPackage {
-    pub name: String,
-    pub version: String,
-    pub description: String,
-    pub authors: Vec<String>,
-    pub license: String,    // Multiple licenses are separated by `/`
-    pub readme: String,
-    pub homepage: Option<String>,
-    pub documentation: Option<String>,
-    pub repository: Option<String>,
-    pub keywords: Option<Vec<String>>,
-    pub metadata: Option<CargoMetadata>,
-}
-
-/// data in [package.metadata]
-#[derive(Clone, Debug, Default, RustcDecodable)]
-pub struct CargoMetadata {
-    pub arch: Option<CargoArch>,
-}
 
 /// data in [package.metadata.arch]
 #[derive(Clone, Debug, Default, RustcDecodable)]
@@ -178,7 +153,7 @@ impl ArchConfig {
             .expect("cargo-arch: invalid or missing Cargo.toml options");
         toml::decode_str::<Cargo>(&content)
             .expect("cargo-arch: could not decode manifest")
-            .to_arch_config()
+            .to_config()
     }
 
     pub fn generate_pkgbuild(&self) {
@@ -252,8 +227,8 @@ impl ArchConfig {
     }
 }
 
-impl Cargo {
-    fn to_arch_config(&self) -> ArchConfig {
+impl ToPackageConfig<ArchConfig> for Cargo {
+    fn to_config(&self) -> ArchConfig {
         let cargo_metadata_default = CargoMetadata::default();
         let cargo_arch_default = CargoArch::default();
         let arch_config = self.package.metadata.as_ref().unwrap_or(&cargo_metadata_default).arch.as_ref().unwrap_or(&cargo_arch_default);
@@ -328,5 +303,12 @@ impl Cargo {
             replaces: replaces,
             options: options,
         }
+    }
+}
+
+
+impl GeneratePackage for ArchConfig {
+    fn generate_package_config(&self) {
+        self.generate_pkgbuild();
     }
 }

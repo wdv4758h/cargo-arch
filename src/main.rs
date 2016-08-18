@@ -13,6 +13,8 @@ use std::io::Write;
 
 pub mod config;
 
+use config::GeneratePackage;
+
 
 fn main() {
 
@@ -33,8 +35,8 @@ fn main() {
     // Generate PKGBUILD
     ////////////////////
 
-    let config = config::ArchConfig::new();
-    config.generate_pkgbuild();
+    config::ArchConfig::new()
+        .generate_package_config();
 
     if mksrcinfo {
         let output = Command::new("makepkg")
