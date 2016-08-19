@@ -1,3 +1,5 @@
+//! Basic Rust package's config, modified from Cargo.
+
 use super::meta::CargoMetadata;
 
 
@@ -7,7 +9,7 @@ pub struct Cargo {
     pub package: CargoPackage,
 }
 
-/// data in [package]
+/// data in `[package]` section
 #[derive(Clone, Debug, RustcDecodable)]
 pub struct CargoPackage {
     pub name: String,
@@ -24,10 +26,12 @@ pub struct CargoPackage {
 }
 
 
+/// A trait for making specific platform package config's settings
 pub trait ToPackageConfig<T> {
     fn to_config(&self) -> T;
 }
 
-pub trait GeneratePackage {
+/// A trait for generate specific platform package's config
+pub trait GeneratePackageConfig {
     fn generate_package_config(&self);
 }

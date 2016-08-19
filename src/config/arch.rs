@@ -1,13 +1,15 @@
+//! Arch Linux's package config
+
 use std::fs::File;
 use std::io::prelude::*;
 
 use toml;
 
-use super::core::{Cargo, ToPackageConfig, GeneratePackage};
+use super::core::{Cargo, ToPackageConfig, GeneratePackageConfig};
 use super::meta::CargoMetadata;
 
 
-/// data in [package.metadata.arch]
+/// data in `[package.metadata.arch]` section
 #[derive(Clone, Debug, Default, RustcDecodable)]
 pub struct CargoArch {
     /// The maintainers of the package
@@ -307,7 +309,7 @@ impl ToPackageConfig<ArchConfig> for Cargo {
 }
 
 
-impl GeneratePackage for ArchConfig {
+impl GeneratePackageConfig for ArchConfig {
     fn generate_package_config(&self) {
         self.generate_pkgbuild();
     }

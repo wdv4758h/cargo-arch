@@ -6,6 +6,8 @@ cargo-arch will generate ``PKGBUILD`` from information in Cargo.toml.
 You can add extra information in ``[package.metadata.arch]`` sections,
 options can be found by ``man PKGBUILD``.
 
+`Documentation <https://wdv4758h.github.io/cargo-arch/cargo_arch/>`_
+
 
 .. contents:: Table of Contents
 
@@ -150,6 +152,12 @@ x86_64, Linux, musl (build on Arch Linux)
             not a dynamic executable
 
 
+Commands Dependency
+------------------------------
+
+* `makepkg <https://wiki.archlinux.org/index.php/makepkg>`_
+
+
 
 Changelog
 ========================================
@@ -191,6 +199,7 @@ Special Thanks
 ========================================
 
 * `cargo-deb <https://github.com/mmstick/cargo-deb>`_ for generates Debian packages
+* `rust-everywhere <https://github.com/japaric/rust-everywhere/>`_ for CI integration
 * `clap-rs <https://github.com/kbknapp/clap-rs>`_ for arguments parsing
 * `Rust Team <https://www.rust-lang.org/team.html>`_
 * and every project I've used
