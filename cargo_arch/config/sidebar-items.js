@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["arch",""],["core",""],["meta",""]]});
+initSidebarItems({"mod":[["arch","Arch Linux's package config"],["core","Basic Rust package's config, modified from Cargo."],["meta","Metadata for different platform's package"]]});

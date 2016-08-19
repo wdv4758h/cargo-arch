@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-337' class='srclink' href='../../../src/cargo_arch/src/config/arch.rs.html#82-146' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-334' class='srclink' href='../../../src/cargo_arch/src/config/arch.rs.html#83-147' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ArchConfig {
     pub maintainers: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,
     pub pkgname: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>,
@@ -80,77 +80,135 @@
     pub options: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,
 }</pre><div class='docblock'><p>see <code>man PKGBUILD</code>
 and <a href="https://wiki.archlinux.org/index.php/PKGBUILD">https://wiki.archlinux.org/index.php/PKGBUILD</a></p>
-</div><h2 class='fields'>Fields</h2><span id='structfield.maintainers' class='structfield'><code>maintainers: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>The maintainers of the package</p>
-</div><span id='structfield.pkgname' class='structfield'><code>pkgname: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
-                           </span><span class='stab '></span><div class='docblock'><p>The name of the package.</p>
-</div><span id='structfield.pkgver' class='structfield'><code>pkgver: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
-                           </span><span class='stab '></span><div class='docblock'><p>The version of the software as released from the author.</p>
-</div><span id='structfield.pkgrel' class='structfield'><code>pkgrel: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
-                           </span><span class='stab '></span><div class='docblock'><p>This is the release number specific to the Arch Linux release.</p>
-</div><span id='structfield.epoch' class='structfield'><code>epoch: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
-                           </span><span class='stab '></span><div class='docblock'><p>Used to force the package to be seen as newer than any previous versions with a lower epoch,
+</div><h2 class='fields'>Fields</h2><span id='structfield.maintainers' class='structfield'>
+                           <span id='maintainers.v' class='invisible'>
+                           <code>maintainers: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The maintainers of the package</p>
+</div><span id='structfield.pkgname' class='structfield'>
+                           <span id='pkgname.v' class='invisible'>
+                           <code>pkgname: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The name of the package.</p>
+</div><span id='structfield.pkgver' class='structfield'>
+                           <span id='pkgver.v' class='invisible'>
+                           <code>pkgver: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The version of the software as released from the author.</p>
+</div><span id='structfield.pkgrel' class='structfield'>
+                           <span id='pkgrel.v' class='invisible'>
+                           <code>pkgrel: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>This is the release number specific to the Arch Linux release.</p>
+</div><span id='structfield.epoch' class='structfield'>
+                           <span id='epoch.v' class='invisible'>
+                           <code>epoch: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Used to force the package to be seen as newer than any previous versions with a lower epoch,
 even if the version number would normally not trigger such an upgrade.</p>
-</div><span id='structfield.pkgdesc' class='structfield'><code>pkgdesc: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
-                           </span><span class='stab '></span><div class='docblock'><p>This should be a brief description of the package and its functionality.</p>
-</div><span id='structfield.url' class='structfield'><code>url: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
-                           </span><span class='stab '></span><div class='docblock'><p>This field contains a URL that is associated with the software being packaged.
+</div><span id='structfield.pkgdesc' class='structfield'>
+                           <span id='pkgdesc.v' class='invisible'>
+                           <code>pkgdesc: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>This should be a brief description of the package and its functionality.</p>
+</div><span id='structfield.url' class='structfield'>
+                           <span id='url.v' class='invisible'>
+                           <code>url: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>This field contains a URL that is associated with the software being packaged.
 This is typically the project’s web site.</p>
-</div><span id='structfield.license' class='structfield'><code>license: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>This field specifies the license(s) that apply to the package.</p>
-</div><span id='structfield.install' class='structfield'><code>install: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
-                           </span><span class='stab '></span><div class='docblock'><p>Specifies a special install script that is to be included in the package.</p>
-</div><span id='structfield.changelog' class='structfield'><code>changelog: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
-                           </span><span class='stab '></span><div class='docblock'><p>Specifies a changelog file that is to be included in the package.</p>
-</div><span id='structfield.source' class='structfield'><code>source: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>An array of source files required to build the package.</p>
-</div><span id='structfield.validpgpkeys' class='structfield'><code>validpgpkeys: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>An array of PGP fingerprints.</p>
-</div><span id='structfield.noextract' class='structfield'><code>noextract: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>An array of file names corresponding to those from the source array.</p>
-</div><span id='structfield.md5sums' class='structfield'><code>md5sums: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>This array contains an MD5 hash for every source file specified in the source array (in the same order).</p>
-</div><span id='structfield.sha1sums' class='structfield'><code>sha1sums: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>Alternative integrity checks that makepkg supports; these all behave similar to the md5sums option described above.</p>
-</div><span id='structfield.sha256sums' class='structfield'><code>sha256sums: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>Alternative integrity checks that makepkg supports; these all behave similar to the md5sums option described above.</p>
-</div><span id='structfield.sha384sums' class='structfield'><code>sha384sums: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>Alternative integrity checks that makepkg supports; these all behave similar to the md5sums option described above.</p>
-</div><span id='structfield.sha512sums' class='structfield'><code>sha512sums: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>Alternative integrity checks that makepkg supports; these all behave similar to the md5sums option described above.</p>
-</div><span id='structfield.groups' class='structfield'><code>groups: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>An array of symbolic names that represent groups of packages,
+</div><span id='structfield.license' class='structfield'>
+                           <span id='license.v' class='invisible'>
+                           <code>license: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>This field specifies the license(s) that apply to the package.</p>
+</div><span id='structfield.install' class='structfield'>
+                           <span id='install.v' class='invisible'>
+                           <code>install: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Specifies a special install script that is to be included in the package.</p>
+</div><span id='structfield.changelog' class='structfield'>
+                           <span id='changelog.v' class='invisible'>
+                           <code>changelog: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Specifies a changelog file that is to be included in the package.</p>
+</div><span id='structfield.source' class='structfield'>
+                           <span id='source.v' class='invisible'>
+                           <code>source: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>An array of source files required to build the package.</p>
+</div><span id='structfield.validpgpkeys' class='structfield'>
+                           <span id='validpgpkeys.v' class='invisible'>
+                           <code>validpgpkeys: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>An array of PGP fingerprints.</p>
+</div><span id='structfield.noextract' class='structfield'>
+                           <span id='noextract.v' class='invisible'>
+                           <code>noextract: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>An array of file names corresponding to those from the source array.</p>
+</div><span id='structfield.md5sums' class='structfield'>
+                           <span id='md5sums.v' class='invisible'>
+                           <code>md5sums: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>This array contains an MD5 hash for every source file specified in the source array (in the same order).</p>
+</div><span id='structfield.sha1sums' class='structfield'>
+                           <span id='sha1sums.v' class='invisible'>
+                           <code>sha1sums: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Alternative integrity checks that makepkg supports; these all behave similar to the md5sums option described above.</p>
+</div><span id='structfield.sha256sums' class='structfield'>
+                           <span id='sha256sums.v' class='invisible'>
+                           <code>sha256sums: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Alternative integrity checks that makepkg supports; these all behave similar to the md5sums option described above.</p>
+</div><span id='structfield.sha384sums' class='structfield'>
+                           <span id='sha384sums.v' class='invisible'>
+                           <code>sha384sums: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Alternative integrity checks that makepkg supports; these all behave similar to the md5sums option described above.</p>
+</div><span id='structfield.sha512sums' class='structfield'>
+                           <span id='sha512sums.v' class='invisible'>
+                           <code>sha512sums: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Alternative integrity checks that makepkg supports; these all behave similar to the md5sums option described above.</p>
+</div><span id='structfield.groups' class='structfield'>
+                           <span id='groups.v' class='invisible'>
+                           <code>groups: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>An array of symbolic names that represent groups of packages,
 allowing you to install multiple packages by requesting a single target.</p>
-</div><span id='structfield.arch' class='structfield'><code>arch: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>Defines on which architectures the given package is available.</p>
-</div><span id='structfield.backup' class='structfield'><code>backup: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>An array of file names, without preceding slashes,
+</div><span id='structfield.arch' class='structfield'>
+                           <span id='arch.v' class='invisible'>
+                           <code>arch: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Defines on which architectures the given package is available.</p>
+</div><span id='structfield.backup' class='structfield'>
+                           <span id='backup.v' class='invisible'>
+                           <code>backup: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>An array of file names, without preceding slashes,
 that should be backed up if the package is removed or upgraded.</p>
-</div><span id='structfield.depends' class='structfield'><code>depends: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>An array of packages this package depends on to run.</p>
-</div><span id='structfield.makedepends' class='structfield'><code>makedepends: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>An array of packages this package depends on to build but are not needed at runtime.</p>
-</div><span id='structfield.checkdepends' class='structfield'><code>checkdepends: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>An array of packages this package depends on to run its test suite but are not needed at runtime.</p>
-</div><span id='structfield.optdepends' class='structfield'><code>optdepends: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>An array of packages (and accompanying reasons) that are not essential for base functionality,
+</div><span id='structfield.depends' class='structfield'>
+                           <span id='depends.v' class='invisible'>
+                           <code>depends: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>An array of packages this package depends on to run.</p>
+</div><span id='structfield.makedepends' class='structfield'>
+                           <span id='makedepends.v' class='invisible'>
+                           <code>makedepends: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>An array of packages this package depends on to build but are not needed at runtime.</p>
+</div><span id='structfield.checkdepends' class='structfield'>
+                           <span id='checkdepends.v' class='invisible'>
+                           <code>checkdepends: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>An array of packages this package depends on to run its test suite but are not needed at runtime.</p>
+</div><span id='structfield.optdepends' class='structfield'>
+                           <span id='optdepends.v' class='invisible'>
+                           <code>optdepends: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>An array of packages (and accompanying reasons) that are not essential for base functionality,
 but may be necessary to make full use of the contents of this package.</p>
-</div><span id='structfield.conflicts' class='structfield'><code>conflicts: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>An array of packages that will conflict with this package.</p>
-</div><span id='structfield.provides' class='structfield'><code>provides: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>An array of &quot;virtual provisions&quot; this package provides.</p>
-</div><span id='structfield.replaces' class='structfield'><code>replaces: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>An array of packages this package should replace.</p>
-</div><span id='structfield.options' class='structfield'><code>options: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
-                           </span><span class='stab '></span><div class='docblock'><p>This array allows you to override some of makepkg’s default behavior when building packages.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../../cargo_arch/config/arch/struct.ArchConfig.html' title='cargo_arch::config::arch::ArchConfig'>ArchConfig</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-367' class='srclink' href='../../../src/cargo_arch/src/config/arch.rs.html#148-229' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../../cargo_arch/config/arch/struct.ArchConfig.html' title='cargo_arch::config::arch::ArchConfig'>ArchConfig</a></code></h4>
-<h4 id='method.generate_pkgbuild' class='method'><code>fn <a href='#method.generate_pkgbuild' class='fnname'>generate_pkgbuild</a>(&amp;self)</code></h4>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../../cargo_arch/config/arch/struct.ArchConfig.html' title='cargo_arch::config::arch::ArchConfig'>ArchConfig</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-303' class='srclink' href='../../../src/cargo_arch/src/config/arch.rs.html#81' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><span id='structfield.conflicts' class='structfield'>
+                           <span id='conflicts.v' class='invisible'>
+                           <code>conflicts: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>An array of packages that will conflict with this package.</p>
+</div><span id='structfield.provides' class='structfield'>
+                           <span id='provides.v' class='invisible'>
+                           <code>provides: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>An array of &quot;virtual provisions&quot; this package provides.</p>
+</div><span id='structfield.replaces' class='structfield'>
+                           <span id='replaces.v' class='invisible'>
+                           <code>replaces: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>An array of packages this package should replace.</p>
+</div><span id='structfield.options' class='structfield'>
+                           <span id='options.v' class='invisible'>
+                           <code>options: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>This array allows you to override some of makepkg’s default behavior when building packages.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../../cargo_arch/config/arch/struct.ArchConfig.html' title='cargo_arch::config::arch::ArchConfig'>ArchConfig</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-364' class='srclink' href='../../../src/cargo_arch/src/config/arch.rs.html#149-230' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../../cargo_arch/config/arch/struct.ArchConfig.html' title='cargo_arch::config::arch::ArchConfig'>ArchConfig</a></code></span></h4>
+<h4 id='method.generate_pkgbuild' class='method'><span id='generate_pkgbuild.v' class='invisible'><code>fn <a href='#method.generate_pkgbuild' class='fnname'>generate_pkgbuild</a>(&amp;self)</code></span></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../../cargo_arch/config/arch/struct.ArchConfig.html' title='cargo_arch::config::arch::ArchConfig'>ArchConfig</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-300' class='srclink' href='../../../src/cargo_arch/src/config/arch.rs.html#82' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
 <div class='docblock'><p>Formats the value using the given formatter.</p>
-</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cargo_arch/config/core/trait.GeneratePackage.html' title='cargo_arch::config::core::GeneratePackage'>GeneratePackage</a> for <a class='struct' href='../../../cargo_arch/config/arch/struct.ArchConfig.html' title='cargo_arch::config::arch::ArchConfig'>ArchConfig</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-480' class='srclink' href='../../../src/cargo_arch/src/config/arch.rs.html#311-315' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.generate_package_config' class='method'><code>fn <a href='../../../cargo_arch/config/core/trait.GeneratePackage.html#tymethod.generate_package_config' class='fnname'>generate_package_config</a>(&amp;self)</code></h4>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cargo_arch/config/core/trait.GeneratePackageConfig.html' title='cargo_arch::config::core::GeneratePackageConfig'>GeneratePackageConfig</a> for <a class='struct' href='../../../cargo_arch/config/arch/struct.ArchConfig.html' title='cargo_arch::config::arch::ArchConfig'>ArchConfig</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-477' class='srclink' href='../../../src/cargo_arch/src/config/arch.rs.html#312-316' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.generate_package_config' class='method'><span id='generate_package_config.v' class='invisible'><code>fn <a href='../../../cargo_arch/config/core/trait.GeneratePackageConfig.html#tymethod.generate_package_config' class='fnname'>generate_package_config</a>(&amp;self)</code></span></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 

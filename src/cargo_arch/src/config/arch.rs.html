@@ -363,18 +363,21 @@
 <span id="319">319</span>
 <span id="320">320</span>
 <span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
 </pre><pre class='rust '>
+<span class='doccomment'>//! Arch Linux&#39;s package config</span>
+
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fs</span>::<span class='ident'>File</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::<span class='ident'>prelude</span>::<span class='op'>*</span>;
 
 <span class='kw'>use</span> <span class='ident'>toml</span>;
 
-<span class='comment'>// use super::core::{Cargo, ToPackageConfig, GeneratePackage, BuildPackage};</span>
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>core</span>::{<span class='ident'>Cargo</span>, <span class='ident'>ToPackageConfig</span>, <span class='ident'>GeneratePackage</span>};
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>core</span>::{<span class='ident'>Cargo</span>, <span class='ident'>ToPackageConfig</span>, <span class='ident'>GeneratePackageConfig</span>};
 <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>meta</span>::<span class='ident'>CargoMetadata</span>;
 
 
-<span class='doccomment'>/// data in [package.metadata.arch]</span>
+<span class='doccomment'>/// data in `[package.metadata.arch]` section</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Debug</span>, <span class='ident'>Default</span>, <span class='ident'>RustcDecodable</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>CargoArch</span> {
     <span class='doccomment'>/// The maintainers of the package</span>
@@ -674,13 +677,14 @@
 }
 
 
-<span class='kw'>impl</span> <span class='ident'>GeneratePackage</span> <span class='kw'>for</span> <span class='ident'>ArchConfig</span> {
+<span class='kw'>impl</span> <span class='ident'>GeneratePackageConfig</span> <span class='kw'>for</span> <span class='ident'>ArchConfig</span> {
     <span class='kw'>fn</span> <span class='ident'>generate_package_config</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) {
         <span class='self'>self</span>.<span class='ident'>generate_pkgbuild</span>();
     }
 }
 
 
+<span class='comment'>// use super::core::{Cargo, ToPackageConfig, GeneratePackage, BuildPackage};</span>
 <span class='comment'>// impl BuildPackage for ArchConfig {</span>
 <span class='comment'>//     fn build_package(&amp;self) {</span>
 <span class='comment'>//     }</span>

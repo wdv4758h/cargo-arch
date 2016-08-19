@@ -42,19 +42,23 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">1</span>
-<span id="2">2</span>
-<span id="3">3</span>
-<span id="4">4</span>
-<span id="5">5</span>
-<span id="6">6</span>
-<span id="7">7</span>
-<span id="8">8</span>
+    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+<span id="2"> 2</span>
+<span id="3"> 3</span>
+<span id="4"> 4</span>
+<span id="5"> 5</span>
+<span id="6"> 6</span>
+<span id="7"> 7</span>
+<span id="8"> 8</span>
+<span id="9"> 9</span>
+<span id="10">10</span>
 </pre><pre class='rust '>
+<span class='doccomment'>//! Metadata for different platform&#39;s package</span>
+
 <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>arch</span>::<span class='ident'>CargoArch</span>;
 
 
-<span class='doccomment'>/// data in [package.metadata]</span>
+<span class='doccomment'>/// data in `[package.metadata]` section</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Debug</span>, <span class='ident'>Default</span>, <span class='ident'>RustcDecodable</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>CargoMetadata</span> {
     <span class='kw'>pub</span> <span class='ident'>arch</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>CargoArch</span><span class='op'>&gt;</span>,

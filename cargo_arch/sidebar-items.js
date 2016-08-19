@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["config",""]]});
+initSidebarItems({"mod":[["config","Config for specific platform's package."],["utils","Utils for making packages"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["build_arch_package","Generate Arch Linux package, including PKGBUILD and final artifects (*.pkg.tar.xz)"]]});

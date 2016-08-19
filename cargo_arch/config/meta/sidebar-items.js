@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["CargoMetadata","data in [package.metadata]"]]});
+initSidebarItems({"struct":[["CargoMetadata","data in `[package.metadata]` section"]]});
