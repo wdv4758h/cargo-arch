@@ -1,6 +1,6 @@
 name: cargo-arch
 bin_name: cargo
-version: 0.1.1
+version: 0.1.2
 about: Rust Arch Linux package packer
 author: Chiu-Hsiang Hsu <wdv4758h@gmail.com>
 
@@ -11,7 +11,7 @@ settings:
 subcommands:
     - arch:
         name: cargo-arch
-        version: 0.1.1
+        version: 0.1.2
         about: Rust Arch Linux package packer
         author: Chiu-Hsiang Hsu <wdv4758h@gmail.com>
         settings:

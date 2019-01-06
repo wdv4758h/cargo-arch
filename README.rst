@@ -35,10 +35,10 @@ Download Prebuilt Binary
 .. code-block:: sh
 
     # by curl
-    $ curl -O -J -L https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.1/cargo-arch-v0.1.1-x86_64-unknown-linux-gnu.tar.gz
+    $ curl -O -J -L https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.2/cargo-arch-v0.1.2-x86_64-unknown-linux-gnu.tar.gz
 
     # by wget
-    $ wget https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.1/cargo-arch-v0.1.1-x86_64-unknown-linux-gnu.tar.gz
+    $ wget https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.2/cargo-arch-v0.1.2-x86_64-unknown-linux-gnu.tar.gz
 
 
 
@@ -48,7 +48,7 @@ Usage
 .. code-block:: sh
 
     $ cargo arch --help
-    cargo-arch 0.1.1
+    cargo-arch 0.1.2
     Chiu-Hsiang Hsu <wdv4758h@gmail.com>
     Rust Arch Linux package packer
 
@@ -70,13 +70,14 @@ Usage
 .. code-block:: sh
 
     $ cargo arch
-    ==> Making package: cargo-arch 0.1.1-1 (Sun 06 Jan 2019 09:01:09 PM CST)
+    ==> Making package: cargo-arch 0.1.2-1 (Sun 06 Jan 2019 10:14:40 PM CST)
     ==> Checking runtime dependencies...
     ==> Checking buildtime dependencies...
     ==> Retrieving sources...
     ==> Extracting sources...
     ==> Starting pkgver()...
-    ==> Updated version: cargo-arch 0.1.1.r0.gbef965b-1
+    ==> Updated version: cargo-arch 0.1.2.r0.gadea8ab-1
+    ==> Removing existing $pkgdir/ directory...
     ==> Starting build()...
        Compiling proc-macro2 v0.4.24
        Compiling unicode-xid v0.1.0
@@ -99,8 +100,8 @@ Usage
         Finished release [optimized] target(s) in 1m 48s
     ==> Entering fakeroot environment...
     ==> Starting package()...
-      Installing cargo-arch v0.1.1 (/home/user/cargo-arch)
-        Finished release [optimized] target(s) in 0.07s
+      Installing cargo-arch v0.1.2 (/home/user/cargo-arch)
+        Finished release [optimized] target(s) in 0.06s
       Installing /home/user/cargo-arch/pkg/cargo-arch/bin/cargo-arch
     warning: be sure to add `/home/user/cargo-arch/pkg/cargo-arch/bin` to your PATH to be able to run the installed binaries
     ==> Tidying install...
@@ -116,7 +117,7 @@ Usage
       -> Generating .MTREE file...
       -> Compressing package...
     ==> Leaving fakeroot environment.
-    ==> Finished making: cargo-arch 0.1.1.r0.gbef965b-1 (Sun 06 Jan 2019 09:02:59 PM CST)
+    ==> Finished making: cargo-arch 0.1.2.r0.gadea8ab-1 (Sun 06 Jan 2019 10:14:41 PM CST)
 
 
 
@@ -135,6 +136,12 @@ Changelog
 
 Not Implemented Yet (Plan)
 ------------------------------
+
+
+v0.1.2 (2019-01-06)
+------------------------------
+
+* Use "/usr" instead of "/" as install base
 
 
 v0.1.1 (2019-01-06)
