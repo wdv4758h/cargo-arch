@@ -1,6 +1,6 @@
 [package]
 name = "cargo-arch"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Chiu-Hsiang Hsu <wdv4758h@gmail.com>"]
 license = "Apache-2.0"
 readme = "README.rst"

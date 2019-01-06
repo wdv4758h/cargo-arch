@@ -35,10 +35,10 @@ Download Prebuilt Binary
 .. code-block:: sh
 
     # by curl
-    $ curl -O -J -L https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.0/cargo-arch-v0.1.0-x86_64-unknown-linux-gnu.tar.gz
+    $ curl -O -J -L https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.1/cargo-arch-v0.1.1-x86_64-unknown-linux-gnu.tar.gz
 
     # by wget
-    $ wget https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.0/cargo-arch-v0.1.0-x86_64-unknown-linux-gnu.tar.gz
+    $ wget https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.1/cargo-arch-v0.1.1-x86_64-unknown-linux-gnu.tar.gz
 
 
 
@@ -48,7 +48,7 @@ Usage
 .. code-block:: sh
 
     $ cargo arch --help
-    cargo-arch 0.1.0
+    cargo-arch 0.1.1
     Chiu-Hsiang Hsu <wdv4758h@gmail.com>
     Rust Arch Linux package packer
 
@@ -64,93 +64,64 @@ Usage
         -V, --version      Prints version information
 
     OPTIONS:
-        -b, --build <build>    whether build the source [default: true]
+        -b, --build <build>    whether build the source [default: true]  [possible values: true, false]
 
 
 .. code-block:: sh
 
     $ cargo arch
-    ==> Making package: cargo-arch 0.1.0-1 (Wed Jul 27 10:38:13 CST 2016)
+    ==> Making package: cargo-arch 0.1.1-1 (Sun 06 Jan 2019 09:01:09 PM CST)
     ==> Checking runtime dependencies...
     ==> Checking buildtime dependencies...
     ==> Retrieving sources...
     ==> Extracting sources...
     ==> Starting pkgver()...
-    ==> Removing existing $pkgdir/ directory...
+    ==> Updated version: cargo-arch 0.1.1.r0.gbef965b-1
     ==> Starting build()...
+       Compiling proc-macro2 v0.4.24
+       Compiling unicode-xid v0.1.0
+       Compiling serde v1.0.84
+       Compiling unicode-width v0.1.5
+       Compiling libc v0.2.15
+       Compiling vec_map v0.8.1
+       Compiling yaml-rust v0.3.5
+       Compiling strsim v0.7.0
+       Compiling ansi_term v0.11.0
+       Compiling bitflags v1.0.4
+       Compiling textwrap v0.10.0
+       Compiling atty v0.2.11
+       Compiling clap v2.32.0
+       Compiling quote v0.6.10
+       Compiling syn v0.15.24
+       Compiling toml v0.4.10
+       Compiling serde_derive v1.0.84
+       Compiling cargo-arch v0.1.1 (/home/user/cargo-arch)
+        Finished release [optimized] target(s) in 1m 48s
     ==> Entering fakeroot environment...
     ==> Starting package()...
-      Installing /home/user/zone/cargo-arch/pkg/cargo-arch/bin/cargo-arch
-    warning: be sure to add `/home/user/zone/cargo-arch/pkg/cargo-arch/bin` to your PATH to be able to run the installed binaries
+      Installing cargo-arch v0.1.1 (/home/user/cargo-arch)
+        Finished release [optimized] target(s) in 0.07s
+      Installing /home/user/cargo-arch/pkg/cargo-arch/bin/cargo-arch
+    warning: be sure to add `/home/user/cargo-arch/pkg/cargo-arch/bin` to your PATH to be able to run the installed binaries
     ==> Tidying install...
       -> Removing libtool files...
       -> Purging unwanted files...
       -> Removing static library files...
       -> Stripping unneeded symbols from binaries and libraries...
       -> Compressing man and info pages...
-    ==> Checking for packaging issue...
+    ==> Checking for packaging issues...
     ==> Creating package "cargo-arch"...
       -> Generating .PKGINFO file...
       -> Generating .BUILDINFO file...
       -> Generating .MTREE file...
       -> Compressing package...
     ==> Leaving fakeroot environment.
-    ==> Finished making: cargo-arch 0.1.0-1 (Wed Jul 27 10:38:15 CST 2016)
+    ==> Finished making: cargo-arch 0.1.1.r0.gbef965b-1 (Sun 06 Jan 2019 09:02:59 PM CST)
 
 
 
 Information About Binary
 ========================================
-
-Size
-------------------------------
-
-x86_64, Linux (build on Arch Linux)
-
-+------------+---------+------------+--------------+-----------+
-| Filename   | Version | Stripped ? | Size (Bytes) | Size (MB) |
-+------------+---------+------------+--------------+-----------+
-| cargo-arch | v0.1.0  | No         | 1767456      | 1.7M      |
-+------------+---------+------------+--------------+-----------+
-| cargo-arch | v0.1.0  | Yes        | 1382280      | 1.4M      |
-+------------+---------+------------+--------------+-----------+
-
-
-x86_64, Linux, musl (build on Arch Linux)
-
-+------------+---------+------------+--------------+-----------+
-| Filename   | Version | Stripped ? | Size (Bytes) | Size (MB) |
-+------------+---------+------------+--------------+-----------+
-| cargo-arch | v0.1.0  | No         | 2139368      | 2.1M      |
-+------------+---------+------------+--------------+-----------+
-| cargo-arch | v0.1.0  | Yes        | 1482536      | 1.5M      |
-+------------+---------+------------+--------------+-----------+
-
-
-Shared Library Dependency
-------------------------------
-
-x86_64, Linux (build on Arch Linux)
-
-.. code-block:: sh
-
-    $ ldd ./target/release/cargo-arch
-            linux-vdso.so.1 (0x00007ffec8387000)
-            libdl.so.2 => /usr/lib/libdl.so.2 (0x00007f5f798c7000)
-            libpthread.so.0 => /usr/lib/libpthread.so.0 (0x00007f5f796aa000)
-            libgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007f5f79494000)
-            libc.so.6 => /usr/lib/libc.so.6 (0x00007f5f790f3000)
-            /lib64/ld-linux-x86-64.so.2 (0x00007f5f79acb000)
-
-
-
-x86_64, Linux, musl (build on Arch Linux)
-
-.. code-block:: sh
-
-    $ ldd ./target/x86_64-unknown-linux-musl/release/cargo-arch
-            not a dynamic executable
-
 
 Commands Dependency
 ------------------------------
@@ -164,6 +135,15 @@ Changelog
 
 Not Implemented Yet (Plan)
 ------------------------------
+
+
+v0.1.1 (2019-01-06)
+------------------------------
+
+* Change to use serde instead of rustc-serialize
+* Update PKGBUILD template to remove .crates.toml
+* Update toml to use serde API
+* Update clap version
 
 
 v0.1.0 (2016-07-27)
@@ -200,7 +180,10 @@ Special Thanks
 
 * `cargo-deb <https://github.com/mmstick/cargo-deb>`_ for generates Debian packages
 * `rust-everywhere <https://github.com/japaric/rust-everywhere/>`_ for CI integration
+* `trust <https://github.com/japaric/trust/>`_ for CI integration
 * `clap-rs <https://github.com/kbknapp/clap-rs>`_ for arguments parsing
+* `serde <https://github.com/serde-rs/serde>`_ for nice deserialization API
+* `toml-rs <https://github.com/alexcrichton/toml-rs>`_ for parsing TOML config and integrate with Serde
 * `Rust Team <https://www.rust-lang.org/team.html>`_
 * and every project I've used
 
