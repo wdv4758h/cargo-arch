@@ -9,4 +9,5 @@ build() {
 package() {
     cd ..
     cargo install --path . --root "$pkgdir"
+    rm -f $pkgdir/.crates.toml
 }

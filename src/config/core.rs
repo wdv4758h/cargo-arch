@@ -4,13 +4,13 @@ use super::meta::CargoMetadata;
 
 
 /// data in Cargo.toml
-#[derive(Clone, Debug, RustcDecodable)]
+#[derive(Clone, Debug, Deserialize)]
 pub struct Cargo {
     pub package: CargoPackage,
 }
 
 /// data in `[package]` section
-#[derive(Clone, Debug, RustcDecodable)]
+#[derive(Clone, Debug, Deserialize)]
 pub struct CargoPackage {
     pub name: String,
     pub version: String,

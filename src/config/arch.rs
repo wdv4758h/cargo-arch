@@ -10,7 +10,7 @@ use super::meta::CargoMetadata;
 
 
 /// data in `[package.metadata.arch]` section
-#[derive(Clone, Debug, Default, RustcDecodable)]
+#[derive(Clone, Debug, Default, Deserialize)]
 pub struct CargoArch {
     /// The maintainers of the package
     pub maintainers: Option<Vec<String>>,
@@ -153,7 +153,7 @@ impl ArchConfig {
         let mut path = File::open(path.as_str()).unwrap();
         path.read_to_string(&mut content)
             .expect("cargo-arch: invalid or missing Cargo.toml options");
-        toml::decode_str::<Cargo>(&content)
+        toml::from_str::<Cargo>(&content)
             .expect("cargo-arch: could not decode manifest")
             .to_config()
     }

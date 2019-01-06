@@ -25,8 +25,8 @@ subcommands:
                 takes_value: true
                 default_value: "true"
                 possible_values:
-                    - true
-                    - false
+                    - "true"
+                    - "false"
             - install:
                 help: Install package after successful build
                 long: install

@@ -2,19 +2,61 @@
 //! Packages' information is extract from `Cargo.toml`.
 //! You can add additional information in `[package.metadata.arch]` section.
 
-#![feature(custom_derive)]
-
 #[macro_use]
-extern crate clap;
-extern crate toml;
-extern crate rustc_serialize;
+extern crate serde_derive;
 
-use clap::App;
+use clap::{App, load_yaml};
 
 pub mod config;
-pub mod utils;
 
-pub use utils::*;
+
+fn build_arch_package(mksrcinfo: bool,
+                      build: bool,
+                      install: bool,
+                      syncdeps: bool,
+                      force: bool) {
+    use std::process::Command;
+    use std::fs::File;
+    use std::io::Write;
+    use crate::config::core::GeneratePackageConfig;
+
+    config::ArchConfig::new().generate_package_config();
+
+    if mksrcinfo {
+        let output = Command::new("makepkg")
+                             .args(&["--printsrcinfo"])
+                             .output()
+                             .expect("failed to generate .SRCINFO");
+
+        let mut file = File::create(".SRCINFO").unwrap();
+        file.write_all(&output.stdout).unwrap();
+    }
+
+    ////////////////////
+    // Build Package
+    ////////////////////
+
+    if build {
+        let mut args = vec![];
+
+        if install {
+            args.push("--install");
+        }
+        if syncdeps {
+            args.push("--syncdeps");
+        }
+        if force {
+            args.push("--force");
+        }
+
+        Command::new("makepkg")
+                .args(&args)
+                .spawn()
+                .unwrap()
+                .wait()
+                .expect("failed to build package");
+    }
+}
 
 
 fn main() {
