@@ -8,6 +8,8 @@ build() {
 
 package() {
     cd ..
-    cargo install --path . --root "$pkgdir"
-    rm -f $pkgdir/.crates.toml
+    usrdir="$pkgdir/usr"
+    mkdir -p $usrdir
+    cargo install --path . --root "$usrdir"
+    rm -f $usrdir/.crates.toml
 }
