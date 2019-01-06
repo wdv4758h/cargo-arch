@@ -4,10 +4,7 @@ cache: cargo
 env:
   global:
     # This will be part of the release tarball
-    - PROJECT_NAME=cargo-arch
-    # - MAKE_DEB=yes
-    # - DEB_MAINTAINER="Chiu-Hsiang Hsu <wdv4758h@gmail.com>"
-    # - DEB_DESCRIPTION="Rust Arch Linux package packer"
+    - CRATE_NAME=cargo-arch
 
 # AFAICT There are a few ways to set up the build jobs. This one is not the DRYest but I feel is the
 # easiest to reason about.
@@ -102,7 +99,7 @@ deploy:
   api_key:
     secure: "eLtG57L0Qng/zGlarJ1jgE1SRi/0dTyIIlZ2Gtf7M0N7hERrAuVI732Z6KqT0V7y8wfD+YyEu5lnhydv3QtBON/F3nEH48ELovW+IbezoI2O+3eqEOZLVRdpF3EPdC1QAMzn2bUcC7o0QSOvVA9Hs7DOcQIYoi0irZBOOgFWwR0KE0FPKAsF+PE/OA80O+Gr/OkCb44HBlQ4plKxX5ZfVbRCB6UIwCMKYvchwZ7gv6QCZFsTRtvfqWcMKQIEcIYpHiRIH0yRN3E+5BqwsxkVHPzw0VIu6HOxl1jArvl/7uOX5cKyPtYDGHyBhnYvksERyc5B2xpnZla5TWo5u2EpNnZGCwS78rGjg2PVsac7IrzjTo9CLvrAE01S/ox7hpW0DUs0bVIrQhoII+pANxzL2LKJCIR6ANi6JhlR6m3jmrGimi8m8Fm3eFvJFRzhnye8Pm7Nq6pl39vfw6k7OX62Vkieym8QXnQLnGpIOj63cJ4wyQ2IvlBJ3gXOQi/gJwUpJk1KitZhHqI6LZHzzXmS8B6R1lkUHsoS0RpiW4rOxjbkGXWSyFgXNeXBKJQ1imsHD3o3lFyntlayvbn8Yy/0HviOtTFKDGF6snoInkVw4bhvMAXSGeojo0raGUOc3/flWRse3Pf8X4i2ijx2uDnqFcPE87s6iH3lZOY5ZIjnWYo="
   file_glob: true
-  file: ${PROJECT_NAME}-${TRAVIS_TAG}-${TARGET}.*
+  file: ${CRATE_NAME}-${TRAVIS_TAG}-${TARGET}.*
   # don't delete the artifacts from previous phases
   skip_cleanup: true
   # deploy when a new tag is pushed
