@@ -147,12 +147,18 @@ pub struct ArchConfig {
 }
 
 impl ArchConfig {
-    pub fn new() -> ArchConfig {
+    pub fn new(manifest_path: Option<&str>) -> ArchConfig {
         let mut content = String::new();
-        let path = format!("{}/Cargo.toml", match std::env::var("CARGO_MANIFEST_DIR") {
-                Ok(val) => val,
-                Err(_) => ".".to_string(),
-            });
+        let path = format!(
+            "{}/Cargo.toml",
+            match manifest_path {
+                Some(val) => val.to_string(),
+                None => match std::env::var("CARGO_MANIFEST_DIR") {
+                    Ok(val) => val,
+                    Err(_) => ".".to_string(),
+                }
+            }
+        );
         let mut path = File::open(path.as_str()).unwrap();
         path.read_to_string(&mut content)
             .expect("cargo-arch: invalid or missing Cargo.toml options");

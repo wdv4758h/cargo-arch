@@ -14,13 +14,14 @@ fn build_arch_package(mksrcinfo: bool,
                       build: bool,
                       install: bool,
                       syncdeps: bool,
-                      force: bool) {
+                      force: bool,
+                      manifest_path: Option<&str>) {
     use std::process::Command;
     use std::fs::File;
     use std::io::Write;
     use crate::config::core::GeneratePackageConfig;
 
-    config::ArchConfig::new().generate_package_config();
+    config::ArchConfig::new(manifest_path).generate_package_config();
 
     if mksrcinfo {
         let output = Command::new("makepkg")
@@ -73,11 +74,12 @@ fn main() {
     let syncdeps = arguments.is_present("syncdeps");
     let force = arguments.is_present("force");
     let mksrcinfo = arguments.is_present("mksrcinfo");
+    let manifest_path = arguments.value_of("manifest-path");
 
     ////////////////////
     // Build Arch Package
     ////////////////////
 
-    build_arch_package(mksrcinfo, build, install, syncdeps, force);
+    build_arch_package(mksrcinfo, build, install, syncdeps, force, manifest_path);
 
 }
