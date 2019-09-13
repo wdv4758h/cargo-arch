@@ -35,10 +35,10 @@ Download Prebuilt Binary
 .. code-block:: sh
 
     # by curl
-    $ curl -O -J -L https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.2/cargo-arch-v0.1.2-x86_64-unknown-linux-gnu.tar.gz
+    $ curl -O -J -L https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.3/cargo-arch-v0.1.3-x86_64-unknown-linux-gnu.tar.gz
 
     # by wget
-    $ wget https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.2/cargo-arch-v0.1.2-x86_64-unknown-linux-gnu.tar.gz
+    $ wget https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.3/cargo-arch-v0.1.3-x86_64-unknown-linux-gnu.tar.gz
 
 
 
@@ -48,7 +48,7 @@ Usage
 .. code-block:: sh
 
     $ cargo arch --help
-    cargo-arch 0.1.2
+    cargo-arch 0.1.3
     Chiu-Hsiang Hsu <wdv4758h@gmail.com>
     Rust Arch Linux package packer
 
@@ -64,46 +64,50 @@ Usage
         -V, --version      Prints version information
 
     OPTIONS:
-        -b, --build <build>    whether build the source [default: true]  [possible values: true, false]
+        -b, --build <build>                    whether build the source [default: true]  [possible values:
+                                               true, false]
+        -p, --manifest-path <manifest-path>    Cargo.toml directory path
 
 
 .. code-block:: sh
 
     $ cargo arch
-    ==> Making package: cargo-arch 0.1.2-1 (Sun 06 Jan 2019 10:14:40 PM CST)
+    ==> Making package: cargo-arch 0.1.3-1 (Fri 13 Sep 2019 08:01:50 PM CST)
     ==> Checking runtime dependencies...
     ==> Checking buildtime dependencies...
     ==> Retrieving sources...
     ==> Extracting sources...
     ==> Starting pkgver()...
-    ==> Updated version: cargo-arch 0.1.2.r0.gadea8ab-1
+    ==> Updated version: cargo-arch 0.1.3.r0.g6b86760-1
     ==> Removing existing $pkgdir/ directory...
     ==> Starting build()...
-       Compiling proc-macro2 v0.4.24
-       Compiling unicode-xid v0.1.0
-       Compiling serde v1.0.84
-       Compiling unicode-width v0.1.5
-       Compiling libc v0.2.15
-       Compiling vec_map v0.8.1
-       Compiling yaml-rust v0.3.5
-       Compiling strsim v0.7.0
+       Compiling proc-macro2 v1.0.3
+       Compiling libc v0.2.62
+       Compiling unicode-xid v0.2.0
+       Compiling serde v1.0.100
+       Compiling bitflags v1.1.0
+       Compiling syn v1.0.5
+       Compiling unicode-width v0.1.6
+       Compiling strsim v0.8.0
        Compiling ansi_term v0.11.0
-       Compiling bitflags v1.0.4
-       Compiling textwrap v0.10.0
-       Compiling atty v0.2.11
-       Compiling clap v2.32.0
-       Compiling quote v0.6.10
-       Compiling syn v0.15.24
-       Compiling toml v0.4.10
-       Compiling serde_derive v1.0.84
-       Compiling cargo-arch v0.1.1 (/home/user/cargo-arch)
-        Finished release [optimized] target(s) in 1m 48s
+       Compiling yaml-rust v0.3.5
+       Compiling vec_map v0.8.1
+       Compiling textwrap v0.11.0
+       Compiling atty v0.2.13
+       Compiling quote v1.0.2
+       Compiling clap v2.33.0
+       Compiling toml v0.5.3
+       Compiling serde_derive v1.0.100
+       Compiling cargo-arch v0.1.3 (/home/user/cargo-arch)
+        Finished release [optimized] target(s) in 1m 29s
     ==> Entering fakeroot environment...
     ==> Starting package()...
-      Installing cargo-arch v0.1.2 (/home/user/cargo-arch)
-        Finished release [optimized] target(s) in 0.06s
-      Installing /home/user/cargo-arch/pkg/cargo-arch/bin/cargo-arch
-    warning: be sure to add `/home/user/cargo-arch/pkg/cargo-arch/bin` to your PATH to be able to run the installed binaries
+      Installing cargo-arch v0.1.3 (/home/user/cargo-arch)
+        Updating crates.io index
+        Finished release [optimized] target(s) in 4.07s
+      Installing /home/user/cargo-arch/pkg/cargo-arch/usr/bin/cargo-arch
+       Installed package `cargo-arch v0.1.3 (/home/user/cargo-arch)` (executable `cargo-arch`)
+    warning: be sure to add `/home/user/cargo-arch/pkg/cargo-arch/usr/bin` to your PATH to be able to run the installed binaries
     ==> Tidying install...
       -> Removing libtool files...
       -> Purging unwanted files...
@@ -117,7 +121,7 @@ Usage
       -> Generating .MTREE file...
       -> Compressing package...
     ==> Leaving fakeroot environment.
-    ==> Finished making: cargo-arch 0.1.2.r0.gadea8ab-1 (Sun 06 Jan 2019 10:14:41 PM CST)
+    ==> Finished making: cargo-arch 0.1.3.r0.g6b86760-1 (Fri 13 Sep 2019 08:03:25 PM CST)
 
 
 
@@ -136,6 +140,13 @@ Changelog
 
 Not Implemented Yet (Plan)
 ------------------------------
+
+
+v0.1.3 (2019-09-13)
+------------------------------
+
+* Add ``--manifest-path`` support (thanks @ZettaScript)
+* Update dependencies version
 
 
 v0.1.2 (2019-01-06)
