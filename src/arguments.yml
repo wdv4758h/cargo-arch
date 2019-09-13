@@ -42,3 +42,8 @@ subcommands:
             - mksrcinfo:
                 help: Run mksrcinfo
                 long: mksrcinfo
+            - manifest-path:
+                help: Cargo.toml directory path
+                long: manifest-path
+                short: p
+                takes_value: true
