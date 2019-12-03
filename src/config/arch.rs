@@ -212,23 +212,7 @@ impl ArchConfig {
         }
 
         fn quote_data(data: &Vec<String>) -> String {
-            let mut buffer = String::new();
-
-            if data.len() == 0 {
-                return buffer;
-            }
-
-            buffer.push_str("\"");
-            buffer.push_str(data[0].as_str());
-            buffer.push_str("\"");
-
-            for i in data.iter().skip(1) {
-                buffer.push_str(", \"");
-                buffer.push_str(i);
-                buffer.push_str("\"");
-            }
-
-            buffer
+            format!("\"{}\"", data.join("\" \""))
         }
 
         for i in &self.maintainers {
