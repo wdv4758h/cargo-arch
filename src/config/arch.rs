@@ -205,11 +205,13 @@ impl ArchConfig {
     }
 
     pub fn generate_pkgbuild(&self) -> Result<()> {
-        let mut buffer = String::new();
+        let mut file = File::create("PKGBUILD")
+            .context("unable to create PKGBUILD")?;
 
         macro_rules! add_data {
             ( $fmt: expr, $data: expr ) => {
-                buffer.push_str(format!($fmt, $data).as_str());
+                writeln!(file, "{}", format!($fmt, $data))
+                    .context("failed to write to PKGBUILD")?
             }
         }
 
@@ -218,91 +220,86 @@ impl ArchConfig {
         }
 
         for i in &self.maintainers {
-            add_data!("# Maintainer: {}\n", i);
+            add_data!("# Maintainer: {}", i);
         }
-        buffer.push_str("\n");
 
-        add_data!("pkgname={}\n", self.pkgname);
-        add_data!("pkgver={}\n", self.pkgver.replace("-","_"));
-        add_data!("pkgrel={}\n", self.pkgrel);
+        add_data!("pkgname={}", self.pkgname);
+        add_data!("pkgver={}", self.pkgver.replace("-","_"));
+        add_data!("pkgrel={}", self.pkgrel);
         if self.epoch != 0 {
-            add_data!("epoch={}\n", self.epoch);
+            add_data!("epoch={}", self.epoch);
         }
-        add_data!("pkgdesc=\"{}\"\n", self.pkgdesc);
+        add_data!("pkgdesc=\"{}\"", self.pkgdesc);
         if ! self.url.is_empty() {
-            add_data!("url=\"{}\"\n", self.url);
+            add_data!("url=\"{}\"", self.url);
         }
         if ! self.license.is_empty() {
-            add_data!("license=({})\n", quote_data(&self.license));
+            add_data!("license=({})", quote_data(&self.license));
         }
         if ! self.install.is_empty() {
-            add_data!("install=\"{}\"\n", self.install);
+            add_data!("install=\"{}\"", self.install);
         }
         if ! self.changelog.is_empty() {
-            add_data!("changelog=\"{}\"\n", self.changelog);
+            add_data!("changelog=\"{}\"", self.changelog);
         }
         if ! self.source.is_empty() {
-            add_data!("source=({})\n", quote_data(&self.source));
+            add_data!("source=({})", quote_data(&self.source));
         }
         if ! self.validpgpkeys.is_empty() {
-            add_data!("validpgpkeys=({})\n", quote_data(&self.validpgpkeys));
+            add_data!("validpgpkeys=({})", quote_data(&self.validpgpkeys));
         }
         if ! self.noextract.is_empty() {
-            add_data!("noextract=({})\n", quote_data(&self.noextract));
+            add_data!("noextract=({})", quote_data(&self.noextract));
         }
         if ! self.md5sums.is_empty() {
-            add_data!("md5sums=({})\n", quote_data(&self.md5sums));
+            add_data!("md5sums=({})", quote_data(&self.md5sums));
         }
         if ! self.sha1sums.is_empty() {
-            add_data!("sha1sums=({})\n", quote_data(&self.sha1sums));
+            add_data!("sha1sums=({})", quote_data(&self.sha1sums));
         }
         if ! self.sha256sums.is_empty() {
-            add_data!("sha256sums=({})\n", quote_data(&self.sha256sums));
+            add_data!("sha256sums=({})", quote_data(&self.sha256sums));
         }
         if ! self.sha384sums.is_empty() {
-            add_data!("sha384sums=({})\n", quote_data(&self.sha384sums));
+            add_data!("sha384sums=({})", quote_data(&self.sha384sums));
         }
         if ! self.sha512sums.is_empty() {
-            add_data!("sha512sums=({})\n", quote_data(&self.sha512sums));
+            add_data!("sha512sums=({})", quote_data(&self.sha512sums));
         }
         if ! self.groups.is_empty() {
-            add_data!("groups=({})\n", quote_data(&self.groups));
+            add_data!("groups=({})", quote_data(&self.groups));
         }
-        add_data!("arch=({})\n", quote_data(&self.arch));
+        add_data!("arch=({})", quote_data(&self.arch));
         if ! self.backup.is_empty() {
-            add_data!("backup=({})\n", quote_data(&self.backup));
+            add_data!("backup=({})", quote_data(&self.backup));
         }
         if ! self.depends.is_empty() {
-            add_data!("depends=({})\n", quote_data(&self.depends));
+            add_data!("depends=({})", quote_data(&self.depends));
         }
         if ! self.makedepends.is_empty() {
-            add_data!("makedepends=({})\n", quote_data(&self.makedepends));
+            add_data!("makedepends=({})", quote_data(&self.makedepends));
         }
         if ! self.checkdepends.is_empty() {
-            add_data!("checkdepends=({})\n", quote_data(&self.checkdepends));
+            add_data!("checkdepends=({})", quote_data(&self.checkdepends));
         }
         if ! self.optdepends.is_empty() {
-            add_data!("optdepends=({})\n", quote_data(&self.optdepends));
+            add_data!("optdepends=({})", quote_data(&self.optdepends));
         }
         if ! self.conflicts.is_empty() {
-            add_data!("conflicts=({})\n", quote_data(&self.conflicts));
+            add_data!("conflicts=({})", quote_data(&self.conflicts));
         }
         if ! self.provides.is_empty() {
-            add_data!("provides=({})\n", quote_data(&self.provides));
+            add_data!("provides=({})", quote_data(&self.provides));
         }
         if ! self.replaces.is_empty() {
-            add_data!("replaces=({})\n", quote_data(&self.replaces));
+            add_data!("replaces=({})", quote_data(&self.replaces));
         }
         if ! self.options.is_empty() {
-            add_data!("options=({})\n", quote_data(&self.options));
+            add_data!("options=({})", quote_data(&self.options));
         }
 
-        buffer.push_str("\n");
-        buffer.push_str(include_str!("PKGBUILD-TEMPLATE"));
-
-        let mut file = File::create("PKGBUILD")
-            .context("unable to create PKGBUILD")?;
-        write!(file, "{}", buffer).context("failed to write to PKGBUILD")
+        writeln!(file, "\n{}", include_str!("PKGBUILD-TEMPLATE"))
+            .context("failed to write to PKGBUILD")
     }
 }
 
