@@ -13,6 +13,10 @@ fn default_arch() -> Vec<String> {
     vec!["x86_64".to_string()]
 }
 
+fn empty_string() -> String {
+    "".to_string()
+}
+
 /// data in `[package.metadata.arch]` section
 #[derive(Clone, Debug, Default, Deserialize)]
 pub struct CargoArch {
@@ -35,9 +39,11 @@ pub struct CargoArch {
     /// This field specifies the license(s) that apply to the package.
     pub license: Option<Vec<String>>,
     /// Specifies a special install script that is to be included in the package.
-    pub install: Option<String>,
+    #[serde(default = "empty_string")]
+    pub install: String,
     /// Specifies a changelog file that is to be included in the package.
-    pub changelog: Option<String>,
+    #[serde(default = "empty_string")]
+    pub changelog: String,
     /// An array of source files required to build the package.
     #[serde(default)]
     pub source: Vec<String>,
@@ -282,9 +288,6 @@ impl ToPackageConfig<ArchConfig> for Cargo {
                                  .collect::<Vec<String>>()
         ).clone();
 
-        let install = arch_config.install.as_ref().unwrap_or(&String::new()).clone();
-        let changelog = arch_config.changelog.as_ref().unwrap_or(&String::new()).clone();
-
         ArchConfig {
             maintainers: maintainers,
             pkgname: pkgname,
@@ -294,8 +297,8 @@ impl ToPackageConfig<ArchConfig> for Cargo {
             pkgdesc: pkgdesc,
             url: url,
             license: license,
-            install: install,
-            changelog: changelog,
+            install: arch_config.install.to_string(),
+            changelog: arch_config.changelog.to_string(),
             source: arch_config.source.to_vec(),
             validpgpkeys: arch_config.validpgpkeys.to_vec(),
             noextract: arch_config.noextract.to_vec(),
