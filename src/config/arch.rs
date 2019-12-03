@@ -39,47 +39,65 @@ pub struct CargoArch {
     /// Specifies a changelog file that is to be included in the package.
     pub changelog: Option<String>,
     /// An array of source files required to build the package.
-    pub source: Option<Vec<String>>,
+    #[serde(default)]
+    pub source: Vec<String>,
     /// An array of PGP fingerprints.
-    pub validpgpkeys: Option<Vec<String>>,
+    #[serde(default)]
+    pub validpgpkeys: Vec<String>,
     /// An array of file names corresponding to those from the source array.
-    pub noextract: Option<Vec<String>>,
+    #[serde(default)]
+    pub noextract: Vec<String>,
     /// This array contains an MD5 hash for every source file specified in the source array (in the same order).
-    pub md5sums: Option<Vec<String>>,
+    #[serde(default)]
+    pub md5sums: Vec<String>,
     /// Alternative integrity checks that makepkg supports; these all behave similar to the md5sums option described above.
-    pub sha1sums: Option<Vec<String>>,
+    #[serde(default)]
+    pub sha1sums: Vec<String>,
     /// Alternative integrity checks that makepkg supports; these all behave similar to the md5sums option described above.
-    pub sha256sums: Option<Vec<String>>,
+    #[serde(default)]
+    pub sha256sums: Vec<String>,
     /// Alternative integrity checks that makepkg supports; these all behave similar to the md5sums option described above.
-    pub sha384sums: Option<Vec<String>>,
+    #[serde(default)]
+    pub sha384sums: Vec<String>,
     /// Alternative integrity checks that makepkg supports; these all behave similar to the md5sums option described above.
-    pub sha512sums: Option<Vec<String>>,
+    #[serde(default)]
+    pub sha512sums: Vec<String>,
     /// An array of symbolic names that represent groups of packages,
     /// allowing you to install multiple packages by requesting a single target.
-    pub groups: Option<Vec<String>>,
+    #[serde(default)]
+    pub groups: Vec<String>,
     /// Defines on which architectures the given package is available.
     #[serde(default = "default_arch")]
     pub arch: Vec<String>,
     /// An array of file names, without preceding slashes,
     /// that should be backed up if the package is removed or upgraded.
-    pub backup: Option<Vec<String>>,
+    #[serde(default)]
+    pub backup: Vec<String>,
     /// An array of packages this package depends on to run.
-    pub depends: Option<Vec<String>>,
+    #[serde(default)]
+    pub depends: Vec<String>,
     /// An array of packages this package depends on to build but are not needed at runtime.
-    pub makedepends: Option<Vec<String>>,
+    #[serde(default)]
+    pub makedepends: Vec<String>,
     /// An array of packages this package depends on to run its test suite but are not needed at runtime.
-    pub checkdepends: Option<Vec<String>>,
+    #[serde(default)]
+    pub checkdepends: Vec<String>,
     /// An array of packages (and accompanying reasons) that are not essential for base functionality,
     /// but may be necessary to make full use of the contents of this package.
-    pub optdepends: Option<Vec<String>>,
+    #[serde(default)]
+    pub optdepends: Vec<String>,
     /// An array of packages that will conflict with this package.
-    pub conflicts: Option<Vec<String>>,
+    #[serde(default)]
+    pub conflicts: Vec<String>,
     /// An array of "virtual provisions" this package provides.
-    pub provides: Option<Vec<String>>,
+    #[serde(default)]
+    pub provides: Vec<String>,
     /// An array of packages this package should replace.
-    pub replaces: Option<Vec<String>>,
+    #[serde(default)]
+    pub replaces: Vec<String>,
     /// This array allows you to override some of makepkg’s default behavior when building packages.
-    pub options: Option<Vec<String>>,
+    #[serde(default)]
+    pub options: Vec<String>,
 }
 
 /// see `man PKGBUILD`
@@ -266,25 +284,6 @@ impl ToPackageConfig<ArchConfig> for Cargo {
 
         let install = arch_config.install.as_ref().unwrap_or(&String::new()).clone();
         let changelog = arch_config.changelog.as_ref().unwrap_or(&String::new()).clone();
-        let source = arch_config.source.as_ref().unwrap_or(&vec![]).clone();
-        let validpgpkeys = arch_config.validpgpkeys.as_ref().unwrap_or(&vec![]).clone();
-        let noextract = arch_config.noextract.as_ref().unwrap_or(&vec![]).clone();
-        let md5sums = arch_config.md5sums.as_ref().unwrap_or(&vec![]).clone();
-        let sha1sums = arch_config.sha1sums.as_ref().unwrap_or(&vec![]).clone();
-        let sha256sums = arch_config.sha256sums.as_ref().unwrap_or(&vec![]).clone();
-        let sha384sums = arch_config.sha384sums.as_ref().unwrap_or(&vec![]).clone();
-        let sha512sums = arch_config.sha512sums.as_ref().unwrap_or(&vec![]).clone();
-        let groups = arch_config.groups.as_ref().unwrap_or(&vec![]).clone();
-        let arch = &arch_config.arch;
-        let backup = arch_config.backup.as_ref().unwrap_or(&vec![]).clone();
-        let depends = arch_config.depends.as_ref().unwrap_or(&vec![]).clone();
-        let makedepends = arch_config.makedepends.as_ref().unwrap_or(&vec![]).clone();
-        let checkdepends = arch_config.checkdepends.as_ref().unwrap_or(&vec![]).clone();
-        let optdepends = arch_config.optdepends.as_ref().unwrap_or(&vec![]).clone();
-        let conflicts = arch_config.conflicts.as_ref().unwrap_or(&vec![]).clone();
-        let provides = arch_config.provides.as_ref().unwrap_or(&vec![]).clone();
-        let replaces = arch_config.replaces.as_ref().unwrap_or(&vec![]).clone();
-        let options = arch_config.options.as_ref().unwrap_or(&vec![]).clone();
 
         ArchConfig {
             maintainers: maintainers,
@@ -297,25 +296,25 @@ impl ToPackageConfig<ArchConfig> for Cargo {
             license: license,
             install: install,
             changelog: changelog,
-            source: source,
-            validpgpkeys: validpgpkeys,
-            noextract: noextract,
-            md5sums: md5sums,
-            sha1sums: sha1sums,
-            sha256sums: sha256sums,
-            sha384sums: sha384sums,
-            sha512sums: sha512sums,
-            groups: groups,
-            arch: arch.to_vec(),
-            backup: backup,
-            depends: depends,
-            makedepends: makedepends,
-            checkdepends: checkdepends,
-            optdepends: optdepends,
-            conflicts: conflicts,
-            provides: provides,
-            replaces: replaces,
-            options: options,
+            source: arch_config.source.to_vec(),
+            validpgpkeys: arch_config.validpgpkeys.to_vec(),
+            noextract: arch_config.noextract.to_vec(),
+            md5sums: arch_config.md5sums.to_vec(),
+            sha1sums: arch_config.sha1sums.to_vec(),
+            sha256sums: arch_config.sha256sums.to_vec(),
+            sha384sums: arch_config.sha384sums.to_vec(),
+            sha512sums: arch_config.sha512sums.to_vec(),
+            groups: arch_config.groups.to_vec(),
+            arch: arch_config.arch.to_vec(),
+            backup: arch_config.backup.to_vec(),
+            depends: arch_config.depends.to_vec(),
+            makedepends: arch_config.makedepends.to_vec(),
+            checkdepends: arch_config.checkdepends.to_vec(),
+            optdepends: arch_config.optdepends.to_vec(),
+            conflicts: arch_config.conflicts.to_vec(),
+            provides: arch_config.provides.to_vec(),
+            replaces: arch_config.replaces.to_vec(),
+            options: arch_config.options.to_vec(),
         }
     }
 }
