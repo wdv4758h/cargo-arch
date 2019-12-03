@@ -35,7 +35,8 @@ pub struct CargoArch {
     pub pkgrel: Option<String>,
     /// Used to force the package to be seen as newer than any previous versions with a lower epoch,
     /// even if the version number would normally not trigger such an upgrade.
-    pub epoch: Option<String>,
+    #[serde(default)]
+    pub epoch: u64,
     /// This should be a brief description of the package and its functionality.
     pub pkgdesc: Option<String>,
     /// This field contains a URL that is associated with the software being packaged.
@@ -125,7 +126,7 @@ pub struct ArchConfig {
     pub pkgrel: String,
     /// Used to force the package to be seen as newer than any previous versions with a lower epoch,
     /// even if the version number would normally not trigger such an upgrade.
-    pub epoch: String,
+    pub epoch: u64,
     /// This should be a brief description of the package and its functionality.
     pub pkgdesc: String,
     /// This field contains a URL that is associated with the software being packaged.
@@ -238,7 +239,9 @@ impl ArchConfig {
         add_data!("pkgname={}\n", self.pkgname);
         add_data!("pkgver={}\n", self.pkgver.replace("-","_"));
         add_data!("pkgrel={}\n", self.pkgrel);
-        add_data!("epoch={}\n", self.epoch);
+        if self.epoch != 0 {
+            add_data!("epoch={}\n", self.epoch);
+        }
         add_data!("pkgdesc=\"{}\"\n", self.pkgdesc);
         if ! self.url.is_empty() {
             add_data!("url=\"{}\"\n", self.url);
@@ -324,7 +327,6 @@ impl From<Cargo> for ArchConfig {
         let pkgname = arch_config.pkgname.as_ref().unwrap_or(&cargo.package.name).clone();
         let pkgver = arch_config.pkgver.as_ref().unwrap_or(&cargo.package.version).clone();
         let pkgrel = arch_config.pkgrel.as_ref().unwrap_or(&"1".to_string()).clone();
-        let epoch = arch_config.epoch.as_ref().unwrap_or(&"0".to_string()).clone();
         let pkgdesc = arch_config.pkgdesc.as_ref().unwrap_or(&cargo.package.description).clone();
         let url = arch_config.url.as_ref()
                              .or(cargo.package.homepage.as_ref())
@@ -342,7 +344,7 @@ impl From<Cargo> for ArchConfig {
             pkgname: pkgname,
             pkgver: pkgver,
             pkgrel: pkgrel,
-            epoch: epoch,
+            epoch: arch_config.epoch,
             pkgdesc: pkgdesc,
             url: url,
             license: license,
