@@ -17,6 +17,11 @@ fn empty_string() -> String {
     "".to_string()
 }
 
+/// cargo is used by the template so default that
+fn default_depends() -> Vec<String> {
+    vec!["cargo".to_string()]
+}
+
 /// data in `[package.metadata.arch]` section
 #[derive(Clone, Debug, Default, Deserialize)]
 pub struct CargoArch {
@@ -83,7 +88,7 @@ pub struct CargoArch {
     #[serde(default)]
     pub depends: Vec<String>,
     /// An array of packages this package depends on to build but are not needed at runtime.
-    #[serde(default)]
+    #[serde(default = "default_depends")]
     pub makedepends: Vec<String>,
     /// An array of packages this package depends on to run its test suite but are not needed at runtime.
     #[serde(default)]
