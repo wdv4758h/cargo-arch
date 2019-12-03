@@ -5,7 +5,7 @@ use std::io::prelude::*;
 
 use toml;
 
-use super::core::{Cargo, ToPackageConfig, GeneratePackageConfig};
+use super::core::{Cargo, GeneratePackageConfig};
 
 
 /// default arch in Arch Linux is x86_64
@@ -193,7 +193,7 @@ impl ArchConfig {
             .expect("cargo-arch: invalid or missing Cargo.toml options");
         toml::from_str::<Cargo>(&content)
             .expect("cargo-arch: could not decode manifest")
-            .to_config()
+            .into()
     }
 
     pub fn generate_pkgbuild(&self) {
@@ -267,23 +267,23 @@ impl ArchConfig {
     }
 }
 
-impl ToPackageConfig<ArchConfig> for Cargo {
-    fn to_config(&self) -> ArchConfig {
-        let arch_config = &self.package.metadata.arch;
+impl From<Cargo> for ArchConfig {
+    fn from(cargo: Cargo) -> Self {
+        let arch_config = cargo.package.metadata.arch;
 
-        let maintainers = arch_config.maintainers.as_ref().unwrap_or(&self.package.authors).clone();
-        let pkgname = arch_config.pkgname.as_ref().unwrap_or(&self.package.name).clone();
-        let pkgver = arch_config.pkgver.as_ref().unwrap_or(&self.package.version).clone();
+        let maintainers = arch_config.maintainers.as_ref().unwrap_or(&cargo.package.authors).clone();
+        let pkgname = arch_config.pkgname.as_ref().unwrap_or(&cargo.package.name).clone();
+        let pkgver = arch_config.pkgver.as_ref().unwrap_or(&cargo.package.version).clone();
         let pkgrel = arch_config.pkgrel.as_ref().unwrap_or(&"1".to_string()).clone();
         let epoch = arch_config.epoch.as_ref().unwrap_or(&"0".to_string()).clone();
-        let pkgdesc = arch_config.pkgdesc.as_ref().unwrap_or(&self.package.description).clone();
+        let pkgdesc = arch_config.pkgdesc.as_ref().unwrap_or(&cargo.package.description).clone();
         let url = arch_config.url.as_ref()
-                             .or(self.package.homepage.as_ref())
-                             .or(self.package.repository.as_ref())
+                             .or(cargo.package.homepage.as_ref())
+                             .or(cargo.package.repository.as_ref())
                              .unwrap_or(&String::new())
                              .clone();
         let license = arch_config.license.as_ref().unwrap_or(
-            &self.package.license.split("/")
+            &cargo.package.license.split("/")
                                  .map(|s| s.to_string())
                                  .collect::<Vec<String>>()
         ).clone();
@@ -297,27 +297,27 @@ impl ToPackageConfig<ArchConfig> for Cargo {
             pkgdesc: pkgdesc,
             url: url,
             license: license,
-            install: arch_config.install.to_string(),
-            changelog: arch_config.changelog.to_string(),
-            source: arch_config.source.to_vec(),
-            validpgpkeys: arch_config.validpgpkeys.to_vec(),
-            noextract: arch_config.noextract.to_vec(),
-            md5sums: arch_config.md5sums.to_vec(),
-            sha1sums: arch_config.sha1sums.to_vec(),
-            sha256sums: arch_config.sha256sums.to_vec(),
-            sha384sums: arch_config.sha384sums.to_vec(),
-            sha512sums: arch_config.sha512sums.to_vec(),
-            groups: arch_config.groups.to_vec(),
-            arch: arch_config.arch.to_vec(),
-            backup: arch_config.backup.to_vec(),
-            depends: arch_config.depends.to_vec(),
-            makedepends: arch_config.makedepends.to_vec(),
-            checkdepends: arch_config.checkdepends.to_vec(),
-            optdepends: arch_config.optdepends.to_vec(),
-            conflicts: arch_config.conflicts.to_vec(),
-            provides: arch_config.provides.to_vec(),
-            replaces: arch_config.replaces.to_vec(),
-            options: arch_config.options.to_vec(),
+            install: arch_config.install,
+            changelog: arch_config.changelog,
+            source: arch_config.source,
+            validpgpkeys: arch_config.validpgpkeys,
+            noextract: arch_config.noextract,
+            md5sums: arch_config.md5sums,
+            sha1sums: arch_config.sha1sums,
+            sha256sums: arch_config.sha256sums,
+            sha384sums: arch_config.sha384sums,
+            sha512sums: arch_config.sha512sums,
+            groups: arch_config.groups,
+            arch: arch_config.arch,
+            backup: arch_config.backup,
+            depends: arch_config.depends,
+            makedepends: arch_config.makedepends,
+            checkdepends: arch_config.checkdepends,
+            optdepends: arch_config.optdepends,
+            conflicts: arch_config.conflicts,
+            provides: arch_config.provides,
+            replaces: arch_config.replaces,
+            options: arch_config.options,
         }
     }
 }
