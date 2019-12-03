@@ -9,6 +9,11 @@ use super::core::{Cargo, ToPackageConfig, GeneratePackageConfig};
 use super::meta::CargoMetadata;
 
 
+/// default arch in Arch Linux is x86_64
+fn default_arch() -> Vec<String> {
+    vec!["x86_64".to_string()]
+}
+
 /// data in `[package.metadata.arch]` section
 #[derive(Clone, Debug, Default, Deserialize)]
 pub struct CargoArch {
@@ -54,7 +59,8 @@ pub struct CargoArch {
     /// allowing you to install multiple packages by requesting a single target.
     pub groups: Option<Vec<String>>,
     /// Defines on which architectures the given package is available.
-    pub arch: Option<Vec<String>>,
+    #[serde(default = "default_arch")]
+    pub arch: Vec<String>,
     /// An array of file names, without preceding slashes,
     /// that should be backed up if the package is removed or upgraded.
     pub backup: Option<Vec<String>>,
@@ -272,7 +278,7 @@ impl ToPackageConfig<ArchConfig> for Cargo {
         let sha384sums = arch_config.sha384sums.as_ref().unwrap_or(&vec![]).clone();
         let sha512sums = arch_config.sha512sums.as_ref().unwrap_or(&vec![]).clone();
         let groups = arch_config.groups.as_ref().unwrap_or(&vec![]).clone();
-        let arch = arch_config.arch.as_ref().unwrap_or(&vec![]).clone();
+        let arch = &arch_config.arch;
         let backup = arch_config.backup.as_ref().unwrap_or(&vec![]).clone();
         let depends = arch_config.depends.as_ref().unwrap_or(&vec![]).clone();
         let makedepends = arch_config.makedepends.as_ref().unwrap_or(&vec![]).clone();
@@ -303,7 +309,7 @@ impl ToPackageConfig<ArchConfig> for Cargo {
             sha384sums: sha384sums,
             sha512sums: sha512sums,
             groups: groups,
-            arch: arch,
+            arch: arch.to_vec(),
             backup: backup,
             depends: depends,
             makedepends: makedepends,
