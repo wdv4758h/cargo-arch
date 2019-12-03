@@ -20,9 +20,8 @@ fn build_arch_package(mksrcinfo: bool,
     use std::process::Command;
     use std::fs::File;
     use std::io::Write;
-    use crate::config::core::GeneratePackageConfig;
 
-    config::ArchConfig::new(manifest_path).generate_package_config();
+    config::ArchConfig::load(manifest_path)?.generate_pkgbuild()?;
 
     if mksrcinfo {
         let output = Command::new("makepkg")

@@ -25,8 +25,3 @@ pub struct CargoPackage {
     #[serde(default)]
     pub metadata: CargoMetadata,
 }
-
-/// A trait for generate specific platform package's config
-pub trait GeneratePackageConfig {
-    fn generate_package_config(&self);
-}

@@ -1,11 +1,12 @@
 //! Arch Linux's package config
 
+use anyhow::{Context, Result};
 use std::fs::File;
 use std::io::prelude::*;
 
 use toml;
 
-use super::core::{Cargo, GeneratePackageConfig};
+use super::core::Cargo;
 
 
 /// default arch in Arch Linux is x86_64
@@ -182,7 +183,7 @@ pub struct ArchConfig {
 }
 
 impl ArchConfig {
-    pub fn new(manifest_path: Option<&str>) -> ArchConfig {
+    pub fn load(manifest_path: Option<&str>) -> Result<ArchConfig> {
         let mut content = String::new();
         let path = format!(
             "{}/Cargo.toml",
@@ -194,15 +195,16 @@ impl ArchConfig {
                 }
             }
         );
-        let mut path = File::open(path.as_str()).unwrap();
+        let mut path = File::open(path.as_str())
+            .context("Unable to open Cargo.toml")?;
         path.read_to_string(&mut content)
-            .expect("cargo-arch: invalid or missing Cargo.toml options");
-        toml::from_str::<Cargo>(&content)
-            .expect("cargo-arch: could not decode manifest")
-            .into()
+            .context("cargo-arch: invalid or missing Cargo.toml options")?;
+        Ok(toml::from_str::<Cargo>(&content)
+            .context("cargo-arch: could not decode manifest")?
+            .into())
     }
 
-    pub fn generate_pkgbuild(&self) {
+    pub fn generate_pkgbuild(&self) -> Result<()> {
         let mut buffer = String::new();
 
         macro_rules! add_data {
@@ -298,8 +300,9 @@ impl ArchConfig {
         buffer.push_str("\n");
         buffer.push_str(include_str!("PKGBUILD-TEMPLATE"));
 
-        let mut file = File::create("PKGBUILD").unwrap();
-        write!(file, "{}", buffer).unwrap();
+        let mut file = File::create("PKGBUILD")
+            .context("unable to create PKGBUILD")?;
+        write!(file, "{}", buffer).context("failed to write to PKGBUILD")
     }
 }
 
@@ -354,12 +357,5 @@ impl From<Cargo> for ArchConfig {
             replaces: arch_config.replaces,
             options: arch_config.options,
         }
-    }
-}
-
-
-impl GeneratePackageConfig for ArchConfig {
-    fn generate_package_config(&self) {
-        self.generate_pkgbuild();
     }
 }
