@@ -22,7 +22,8 @@ pub struct CargoPackage {
     pub documentation: Option<String>,
     pub repository: Option<String>,
     pub keywords: Option<Vec<String>>,
-    pub metadata: Option<CargoMetadata>,
+    #[serde(default)]
+    pub metadata: CargoMetadata,
 }
 
 

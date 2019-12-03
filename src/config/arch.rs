@@ -6,7 +6,6 @@ use std::io::prelude::*;
 use toml;
 
 use super::core::{Cargo, ToPackageConfig, GeneratePackageConfig};
-use super::meta::CargoMetadata;
 
 
 /// default arch in Arch Linux is x86_64
@@ -246,9 +245,7 @@ impl ArchConfig {
 
 impl ToPackageConfig<ArchConfig> for Cargo {
     fn to_config(&self) -> ArchConfig {
-        let cargo_metadata_default = CargoMetadata::default();
-        let cargo_arch_default = CargoArch::default();
-        let arch_config = self.package.metadata.as_ref().unwrap_or(&cargo_metadata_default).arch.as_ref().unwrap_or(&cargo_arch_default);
+        let arch_config = &self.package.metadata.arch;
 
         let maintainers = arch_config.maintainers.as_ref().unwrap_or(&self.package.authors).clone();
         let pkgname = arch_config.pkgname.as_ref().unwrap_or(&self.package.name).clone();
