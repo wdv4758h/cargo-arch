@@ -22,16 +22,6 @@ pub struct CargoPackage {
     pub documentation: Option<String>,
     pub repository: Option<String>,
     pub keywords: Option<Vec<String>>,
-    pub metadata: Option<CargoMetadata>,
-}
-
-
-/// A trait for making specific platform package config's settings
-pub trait ToPackageConfig<T> {
-    fn to_config(&self) -> T;
-}
-
-/// A trait for generate specific platform package's config
-pub trait GeneratePackageConfig {
-    fn generate_package_config(&self);
+    #[serde(default)]
+    pub metadata: CargoMetadata,
 }
