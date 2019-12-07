@@ -3,7 +3,7 @@
 //! You can add additional information in `[package.metadata.arch]` section.
 
 #[macro_use]
-extern crate serde_derive;
+extern crate serde;
 
 use anyhow::{format_err, Context, Result};
 use clap::{App, load_yaml};
