@@ -3,7 +3,7 @@ pkgver() {
 }
 
 build() {
-    cargo build --release
+    return 0
 }
 
 package() {
