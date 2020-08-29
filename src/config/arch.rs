@@ -222,6 +222,13 @@ impl ArchConfig {
             add_data!("# Maintainer: {}", i);
         }
 
+        let mut makedepends = self.makedepends.clone();
+
+        // git-makedepends is required on git-mode
+        if src == core::Source::Git && !makedepends.contains(&"git".to_string()) {
+            makedepends.push("git".to_string());
+        }
+
         add_data!("pkgname={}", self.pkgname);
         add_data!("pkgver={}", self.pkgver.replace("-", "_"));
         add_data!("pkgrel={}", self.pkgrel);
@@ -290,8 +297,8 @@ impl ArchConfig {
         if !self.depends.is_empty() {
             add_data!("depends=({})", quote_data(&self.depends));
         }
-        if !self.makedepends.is_empty() {
-            add_data!("makedepends=({})", quote_data(&self.makedepends));
+        if !makedepends.is_empty() {
+            add_data!("makedepends=({})", quote_data(&makedepends));
         }
         if !self.checkdepends.is_empty() {
             add_data!("checkdepends=({})", quote_data(&self.checkdepends));
