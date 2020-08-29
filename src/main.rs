@@ -6,28 +6,30 @@
 extern crate serde;
 
 use anyhow::{format_err, Context, Result};
-use clap::{App, load_yaml};
+use clap::{load_yaml, App};
 
 pub mod config;
 
-
-fn build_arch_package(mksrcinfo: bool,
-                      build: bool,
-                      install: bool,
-                      syncdeps: bool,
-                      force: bool,
-                      manifest_path: Option<&str>) -> Result<()> {
-    use std::process::Command;
+fn build_arch_package(
+    mksrcinfo: bool,
+    build: bool,
+    install: bool,
+    syncdeps: bool,
+    force: bool,
+    manifest_path: Option<&str>,
+    src: config::core::Source,
+) -> Result<()> {
     use std::fs::File;
     use std::io::Write;
+    use std::process::Command;
 
-    config::ArchConfig::load(manifest_path)?.generate_pkgbuild()?;
+    config::ArchConfig::load(manifest_path)?.generate_pkgbuild(src)?;
 
     if mksrcinfo {
         let output = Command::new("makepkg")
-                             .args(&["--printsrcinfo"])
-                             .output()
-                             .context("failed to generate .SRCINFO")?;
+            .args(&["--printsrcinfo"])
+            .output()
+            .context("failed to generate .SRCINFO")?;
 
         let mut file = File::create(".SRCINFO")?;
         file.write_all(&output.stdout)?;
@@ -51,19 +53,17 @@ fn build_arch_package(mksrcinfo: bool,
         }
 
         Command::new("makepkg")
-                .args(&args)
-                .spawn()
-                .context("unable to execute makepkg")?
-                .wait()
-                .context("failed to build package")?;
+            .args(&args)
+            .spawn()
+            .context("unable to execute makepkg")?
+            .wait()
+            .context("failed to build package")?;
     }
 
     Ok(())
 }
 
-
 fn main() -> Result<()> {
-
     ////////////////////
     // Parse Arguments
     ////////////////////
@@ -77,6 +77,10 @@ fn main() -> Result<()> {
         .value_of("build")
         .ok_or_else(|| format_err!("no build option"))?
         .parse::<bool>()?;
+    let src = arguments
+        .value_of("src")
+        .ok_or_else(|| format_err!("no build option"))?
+        .parse::<config::core::Source>()?;
     let install = arguments.is_present("install");
     let syncdeps = arguments.is_present("syncdeps");
     let force = arguments.is_present("force");
@@ -87,6 +91,13 @@ fn main() -> Result<()> {
     // Build Arch Package
     ////////////////////
 
-    build_arch_package(mksrcinfo, build, install, syncdeps, force, manifest_path)
-
+    build_arch_package(
+        mksrcinfo,
+        build,
+        install,
+        syncdeps,
+        force,
+        manifest_path,
+        src,
+    )
 }

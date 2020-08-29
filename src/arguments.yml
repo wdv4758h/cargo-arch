@@ -23,7 +23,7 @@ subcommands:
                 long: build
                 short: b
                 takes_value: true
-                default_value: "true"
+                default_value: "false"
                 possible_values:
                     - "true"
                     - "false"
@@ -42,6 +42,14 @@ subcommands:
             - mksrcinfo:
                 help: Run mksrcinfo
                 long: mksrcinfo
+            - src:
+                help: Code source. Either git or crates.io
+                long: src
+                takes_value: true
+                default_value: "git"
+                possible_values:
+                    - "git"
+                    - "crates.io"
             - manifest-path:
                 help: Cargo.toml directory path
                 long: manifest-path

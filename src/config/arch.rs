@@ -1,5 +1,6 @@
 //! Arch Linux's package config
 
+use crate::config::core;
 use anyhow::{Context, Result};
 use std::fs::File;
 use std::io::prelude::*;
@@ -7,7 +8,6 @@ use std::io::prelude::*;
 use toml;
 
 use super::core::Cargo;
-
 
 /// default arch in Arch Linux is x86_64
 fn default_arch() -> Vec<String> {
@@ -133,6 +133,8 @@ pub struct ArchConfig {
     /// This field contains a URL that is associated with the software being packaged.
     /// This is typically the project’s web site.
     pub url: String,
+    /// This field Represents the repository assigned to the crate
+    pub repository: String,
     /// This field specifies the license(s) that apply to the package.
     pub license: Vec<String>,
     /// Specifies a special install script that is to be included in the package.
@@ -192,11 +194,10 @@ impl ArchConfig {
                 None => match std::env::var("CARGO_MANIFEST_DIR") {
                     Ok(val) => val,
                     Err(_) => ".".to_string(),
-                }
+                },
             }
         );
-        let mut path = File::open(path.as_str())
-            .context("Unable to open Cargo.toml")?;
+        let mut path = File::open(path.as_str()).context("Unable to open Cargo.toml")?;
         path.read_to_string(&mut content)
             .context("cargo-arch: invalid or missing Cargo.toml options")?;
         Ok(toml::from_str::<Cargo>(&content)
@@ -204,15 +205,13 @@ impl ArchConfig {
             .into())
     }
 
-    pub fn generate_pkgbuild(&self) -> Result<()> {
-        let mut file = File::create("PKGBUILD")
-            .context("unable to create PKGBUILD")?;
+    pub fn generate_pkgbuild(&self, src: core::Source) -> Result<()> {
+        let mut file = File::create("PKGBUILD").context("unable to create PKGBUILD")?;
 
         macro_rules! add_data {
             ( $fmt: expr, $data: expr ) => {
-                writeln!(file, "{}", format!($fmt, $data))
-                    .context("failed to write to PKGBUILD")?
-            }
+                writeln!(file, "{}", format!($fmt, $data)).context("failed to write to PKGBUILD")?
+            };
         }
 
         fn quote_data(data: &Vec<String>) -> String {
@@ -224,82 +223,101 @@ impl ArchConfig {
         }
 
         add_data!("pkgname={}", self.pkgname);
-        add_data!("pkgver={}", self.pkgver.replace("-","_"));
+        add_data!("pkgver={}", self.pkgver.replace("-", "_"));
         add_data!("pkgrel={}", self.pkgrel);
         if self.epoch != 0 {
             add_data!("epoch={}", self.epoch);
         }
         add_data!("pkgdesc=\"{}\"", self.pkgdesc);
-        if ! self.url.is_empty() {
+        if !self.url.is_empty() {
             add_data!("url=\"{}\"", self.url);
+        } else if src == core::Source::Git {
+            // Use repository as url for the new PKGBUILD
+            add_data!("url=\"{}\"", self.repository);
         }
-        if ! self.license.is_empty() {
+
+        if !self.license.is_empty() {
             add_data!("license=({})", quote_data(&self.license));
         }
-        if ! self.install.is_empty() {
+        if !self.install.is_empty() {
             add_data!("install=\"{}\"", self.install);
         }
-        if ! self.changelog.is_empty() {
+        if !self.changelog.is_empty() {
             add_data!("changelog=\"{}\"", self.changelog);
         }
-        if ! self.source.is_empty() {
+        if !self.source.is_empty() {
             add_data!("source=({})", quote_data(&self.source));
+        } else if src == core::Source::Git {
+            // If no custom source was specified and buildmode is git, use url+git
+            add_data!(
+                "source=({})",
+                quote_data(&vec!["git+$url#tag=v$pkgver".to_owned()])
+            );
         }
-        if ! self.validpgpkeys.is_empty() {
+
+        if !self.validpgpkeys.is_empty() {
             add_data!("validpgpkeys=({})", quote_data(&self.validpgpkeys));
         }
-        if ! self.noextract.is_empty() {
+        if !self.noextract.is_empty() {
             add_data!("noextract=({})", quote_data(&self.noextract));
         }
-        if ! self.md5sums.is_empty() {
+        if !self.md5sums.is_empty() {
             add_data!("md5sums=({})", quote_data(&self.md5sums));
+        } else if src == core::Source::Git {
+            // On gitmode, skip md5sum verification
+            add_data!("md5sums=({})", quote_data(&vec!["SKIP".to_owned()]));
         }
-        if ! self.sha1sums.is_empty() {
+
+        if !self.sha1sums.is_empty() {
             add_data!("sha1sums=({})", quote_data(&self.sha1sums));
         }
-        if ! self.sha256sums.is_empty() {
+        if !self.sha256sums.is_empty() {
             add_data!("sha256sums=({})", quote_data(&self.sha256sums));
         }
-        if ! self.sha384sums.is_empty() {
+        if !self.sha384sums.is_empty() {
             add_data!("sha384sums=({})", quote_data(&self.sha384sums));
         }
-        if ! self.sha512sums.is_empty() {
+        if !self.sha512sums.is_empty() {
             add_data!("sha512sums=({})", quote_data(&self.sha512sums));
         }
-        if ! self.groups.is_empty() {
+        if !self.groups.is_empty() {
             add_data!("groups=({})", quote_data(&self.groups));
         }
         add_data!("arch=({})", quote_data(&self.arch));
-        if ! self.backup.is_empty() {
+        if !self.backup.is_empty() {
             add_data!("backup=({})", quote_data(&self.backup));
         }
-        if ! self.depends.is_empty() {
+        if !self.depends.is_empty() {
             add_data!("depends=({})", quote_data(&self.depends));
         }
-        if ! self.makedepends.is_empty() {
+        if !self.makedepends.is_empty() {
             add_data!("makedepends=({})", quote_data(&self.makedepends));
         }
-        if ! self.checkdepends.is_empty() {
+        if !self.checkdepends.is_empty() {
             add_data!("checkdepends=({})", quote_data(&self.checkdepends));
         }
-        if ! self.optdepends.is_empty() {
+        if !self.optdepends.is_empty() {
             add_data!("optdepends=({})", quote_data(&self.optdepends));
         }
-        if ! self.conflicts.is_empty() {
+        if !self.conflicts.is_empty() {
             add_data!("conflicts=({})", quote_data(&self.conflicts));
         }
-        if ! self.provides.is_empty() {
+        if !self.provides.is_empty() {
             add_data!("provides=({})", quote_data(&self.provides));
         }
-        if ! self.replaces.is_empty() {
+        if !self.replaces.is_empty() {
             add_data!("replaces=({})", quote_data(&self.replaces));
         }
-        if ! self.options.is_empty() {
+        if !self.options.is_empty() {
             add_data!("options=({})", quote_data(&self.options));
         }
 
-        writeln!(file, "\n{}", include_str!("PKGBUILD-TEMPLATE"))
-            .context("failed to write to PKGBUILD")
+        let to_write_pkgbuild = match src {
+            super::Source::Crates => include_str!("PKGBUILD-TEMPLATE_crates"),
+            super::Source::Git => include_str!("PKGBUILD-TEMPLATE_git"),
+        };
+
+        writeln!(file, "\n{}", to_write_pkgbuild).context("failed to write to PKGBUILD")
     }
 }
 
@@ -307,31 +325,67 @@ impl From<Cargo> for ArchConfig {
     fn from(cargo: Cargo) -> Self {
         let arch_config = cargo.package.metadata.arch;
 
-        let maintainers = arch_config.maintainers.as_ref().unwrap_or(&cargo.package.authors).clone();
-        let pkgname = arch_config.pkgname.as_ref().unwrap_or(&cargo.package.name).clone();
-        let pkgver = arch_config.pkgver.as_ref().unwrap_or(&cargo.package.version).clone();
-        let pkgrel = arch_config.pkgrel.as_ref().unwrap_or(&"1".to_string()).clone();
-        let pkgdesc = arch_config.pkgdesc.as_ref().unwrap_or(&cargo.package.description).clone();
-        let url = arch_config.url.as_ref()
-                             .or(cargo.package.homepage.as_ref())
-                             .or(cargo.package.repository.as_ref())
-                             .unwrap_or(&String::new())
-                             .clone();
-        let license = arch_config.license.as_ref().unwrap_or(
-            &cargo.package.license.split("/")
-                                 .map(|s| s.to_string())
-                                 .collect::<Vec<String>>()
-        ).clone();
+        let maintainers = arch_config
+            .maintainers
+            .as_ref()
+            .unwrap_or(&cargo.package.authors)
+            .clone();
+        let repository = cargo
+            .package
+            .repository
+            .clone()
+            .unwrap_or("".to_owned())
+            .clone();
+        let pkgname = arch_config
+            .pkgname
+            .as_ref()
+            .unwrap_or(&cargo.package.name)
+            .clone();
+        let pkgver = arch_config
+            .pkgver
+            .as_ref()
+            .unwrap_or(&cargo.package.version)
+            .clone();
+        let pkgrel = arch_config
+            .pkgrel
+            .as_ref()
+            .unwrap_or(&"1".to_string())
+            .clone();
+        let pkgdesc = arch_config
+            .pkgdesc
+            .as_ref()
+            .unwrap_or(&cargo.package.description)
+            .clone();
+        let url = arch_config
+            .url
+            .as_ref()
+            .or(cargo.package.homepage.as_ref())
+            .or(cargo.package.repository.as_ref())
+            .unwrap_or(&String::new())
+            .clone();
+        let license = arch_config
+            .license
+            .as_ref()
+            .unwrap_or(
+                &cargo
+                    .package
+                    .license
+                    .split("/")
+                    .map(|s| s.to_string())
+                    .collect::<Vec<String>>(),
+            )
+            .clone();
 
         ArchConfig {
-            maintainers: maintainers,
-            pkgname: pkgname,
-            pkgver: pkgver,
-            pkgrel: pkgrel,
+            maintainers,
+            pkgname,
+            pkgver,
+            pkgrel,
             epoch: arch_config.epoch,
-            pkgdesc: pkgdesc,
-            url: url,
-            license: license,
+            pkgdesc,
+            url,
+            repository,
+            license,
             install: arch_config.install,
             changelog: arch_config.changelog,
             source: arch_config.source,

@@ -1,0 +1,11 @@
+build() {
+    return 0
+}
+
+package() {
+    cd ..
+    usrdir="$pkgdir/usr"
+    mkdir -p $usrdir
+    cargo install $pkgname --path . --root "$usrdir"
+    rm -f $usrdir/.crates.toml
+}
