@@ -3,12 +3,10 @@ pkgver() {
 }
 
 build() {
-    export CARGO_TARGET_DIR="${srcdir}/${pkgname}-${pkgver}"
-    cargo build --release
+    return 0
 }
 
 package() {
-    export CARGO_TARGET_DIR="${srcdir}/${pkgname}-${pkgver}"
     cd ..
     usrdir="$pkgdir/usr"
     mkdir -p $usrdir
