@@ -356,3 +356,53 @@ impl From<Cargo> for ArchConfig {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const TEST_CONFIG: &str = r#"
+        [package]
+        name = "cargo-arch"
+        version = "0.1.4"
+        authors = ["Chiu-Hsiang Hsu <wdv4758h@gmail.com>"]
+        license = "Apache-2.0"
+        readme = "README.rst"
+        description = "Rust Arch Linux package packer"
+        repository = "https://github.com/wdv4758h/cargo-arch/"
+        edition = "2018"
+        keywords = ["cargo", "package"]
+    "#;
+
+    #[test]
+    fn parse_with_defaults() {
+        let default = toml::from_str::<Cargo>(TEST_CONFIG)
+            .expect("cargo-arch: could not decode manifest");
+        assert_eq!(default.package.metadata.arch.makedepends, ["cargo"]);
+        assert_eq!(default.package.metadata.arch.arch, ["x86_64"]);
+    }
+
+    const TEST_CONFIG_DEB: &str = r#"
+        [package]
+        name = "cargo-arch"
+        version = "0.1.4"
+        authors = ["Chiu-Hsiang Hsu <wdv4758h@gmail.com>"]
+        license = "Apache-2.0"
+        readme = "README.rst"
+        description = "Rust Arch Linux package packer"
+        repository = "https://github.com/wdv4758h/cargo-arch/"
+        edition = "2018"
+        keywords = ["cargo", "package"]
+
+        [package.metadata.deb]
+        depends = "$auto"
+    "#;
+
+    #[test]
+    fn parse_with_deb() {
+        let default = toml::from_str::<Cargo>(TEST_CONFIG_DEB)
+            .expect("cargo-arch: could not decode manifest");
+        assert_eq!(default.package.metadata.arch.makedepends, ["cargo"]);
+        assert_eq!(default.package.metadata.arch.arch, ["x86_64"]);
+    }
+}
