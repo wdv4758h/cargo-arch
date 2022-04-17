@@ -24,7 +24,7 @@ fn default_depends() -> Vec<String> {
 }
 
 /// data in `[package.metadata.arch]` section
-#[derive(Clone, Debug, Default, Deserialize)]
+#[derive(Clone, Debug, Deserialize)]
 pub struct CargoArch {
     /// The maintainers of the package
     pub maintainers: Option<Vec<String>>,
@@ -111,6 +111,13 @@ pub struct CargoArch {
     /// This array allows you to override some of makepkg’s default behavior when building packages.
     #[serde(default)]
     pub options: Vec<String>,
+}
+
+impl Default for CargoArch {
+    fn default() -> Self {
+        // make rust's Default trait use the serde defaults
+        toml::from_str("").unwrap()
+    }
 }
 
 /// see `man PKGBUILD`
