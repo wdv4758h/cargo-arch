@@ -1,6 +1,7 @@
 //! Arch Linux's package config
 
 use anyhow::{Context, Result};
+use serde::Deserialize;
 use std::fs::File;
 use std::io::prelude::*;
 
@@ -231,7 +232,7 @@ impl ArchConfig {
         }
 
         add_data!("pkgname={}", self.pkgname);
-        add_data!("pkgver={}", self.pkgver.replace("-","_"));
+        add_data!("pkgver={}", self.pkgver.replace('-',"_"));
         add_data!("pkgrel={}", self.pkgrel);
         if self.epoch != 0 {
             add_data!("epoch={}", self.epoch);
@@ -325,20 +326,20 @@ impl From<Cargo> for ArchConfig {
                              .unwrap_or(&String::new())
                              .clone();
         let license = arch_config.license.as_ref().unwrap_or(
-            &cargo.package.license.split("/")
+            &cargo.package.license.split('/')
                                  .map(|s| s.to_string())
                                  .collect::<Vec<String>>()
         ).clone();
 
         ArchConfig {
-            maintainers: maintainers,
-            pkgname: pkgname,
-            pkgver: pkgver,
-            pkgrel: pkgrel,
+            maintainers,
+            pkgname,
+            pkgver,
+            pkgrel,
             epoch: arch_config.epoch,
-            pkgdesc: pkgdesc,
-            url: url,
-            license: license,
+            pkgdesc,
+            url,
+            license,
             install: arch_config.install,
             changelog: arch_config.changelog,
             source: arch_config.source,

@@ -1,5 +1,6 @@
 //! Basic Rust package's config, modified from Cargo.
 
+use serde::Deserialize;
 use super::meta::CargoMetadata;
 
 

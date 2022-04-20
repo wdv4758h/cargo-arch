@@ -1,5 +1,6 @@
 //! Metadata for different platform's package
 
+use serde::Deserialize;
 use super::arch::CargoArch;
 use std::default::Default;
 

@@ -6,14 +6,14 @@ license = "Apache-2.0"
 readme = "README.rst"
 description = "Rust Arch Linux package packer"
 repository = "https://github.com/wdv4758h/cargo-arch/"
-edition = "2018"
+edition = "2021"
 keywords = ["cargo", "package"]
 
 [dependencies]
-anyhow = "1.0"
-clap = { version = "2.33.0", features = ["yaml"] }
-serde = { version = "1.0.103", features = ["std", "derive"] }
-toml = "0.5.5"
+anyhow = "1.0.56"
+clap = { version = "3.1.10", features = ["derive"] }
+serde = { version = "1.0.136", features = ["std", "derive"] }
+toml = "0.5.9"
 
 [package.metadata.arch]
 arch = ["x86_64"]
