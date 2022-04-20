@@ -24,7 +24,7 @@ fn default_depends() -> Vec<String> {
 }
 
 /// data in `[package.metadata.arch]` section
-#[derive(Clone, Debug, Default, Deserialize)]
+#[derive(Clone, Debug, Deserialize)]
 pub struct CargoArch {
     /// The maintainers of the package
     pub maintainers: Option<Vec<String>>,
@@ -111,6 +111,13 @@ pub struct CargoArch {
     /// This array allows you to override some of makepkg’s default behavior when building packages.
     #[serde(default)]
     pub options: Vec<String>,
+}
+
+impl Default for CargoArch {
+    fn default() -> Self {
+        // make rust's Default trait use the serde defaults
+        toml::from_str("").unwrap()
+    }
 }
 
 /// see `man PKGBUILD`
@@ -354,5 +361,55 @@ impl From<Cargo> for ArchConfig {
             replaces: arch_config.replaces,
             options: arch_config.options,
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const TEST_CONFIG: &str = r#"
+        [package]
+        name = "cargo-arch"
+        version = "0.1.4"
+        authors = ["Chiu-Hsiang Hsu <wdv4758h@gmail.com>"]
+        license = "Apache-2.0"
+        readme = "README.rst"
+        description = "Rust Arch Linux package packer"
+        repository = "https://github.com/wdv4758h/cargo-arch/"
+        edition = "2018"
+        keywords = ["cargo", "package"]
+    "#;
+
+    #[test]
+    fn parse_with_defaults() {
+        let default = toml::from_str::<Cargo>(TEST_CONFIG)
+            .expect("cargo-arch: could not decode manifest");
+        assert_eq!(default.package.metadata.arch.makedepends, ["cargo"]);
+        assert_eq!(default.package.metadata.arch.arch, ["x86_64"]);
+    }
+
+    const TEST_CONFIG_DEB: &str = r#"
+        [package]
+        name = "cargo-arch"
+        version = "0.1.4"
+        authors = ["Chiu-Hsiang Hsu <wdv4758h@gmail.com>"]
+        license = "Apache-2.0"
+        readme = "README.rst"
+        description = "Rust Arch Linux package packer"
+        repository = "https://github.com/wdv4758h/cargo-arch/"
+        edition = "2018"
+        keywords = ["cargo", "package"]
+
+        [package.metadata.deb]
+        depends = "$auto"
+    "#;
+
+    #[test]
+    fn parse_with_deb() {
+        let default = toml::from_str::<Cargo>(TEST_CONFIG_DEB)
+            .expect("cargo-arch: could not decode manifest");
+        assert_eq!(default.package.metadata.arch.makedepends, ["cargo"]);
+        assert_eq!(default.package.metadata.arch.arch, ["x86_64"]);
     }
 }
