@@ -35,10 +35,10 @@ Download Prebuilt Binary
 .. code-block:: sh
 
     # by curl
-    $ curl -O -J -L https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.4/cargo-arch-v0.1.4-x86_64-unknown-linux-gnu.tar.gz
+    $ curl -O -J -L https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.5/cargo-arch-v0.1.5-x86_64-unknown-linux-gnu.tar.gz
 
     # by wget
-    $ wget https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.4/cargo-arch-v0.1.4-x86_64-unknown-linux-gnu.tar.gz
+    $ wget https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.5/cargo-arch-v0.1.5-x86_64-unknown-linux-gnu.tar.gz
 
 
 
@@ -48,7 +48,7 @@ Usage
 .. code-block:: sh
 
     $ cargo arch --help
-    cargo-arch 0.1.4
+    cargo-arch 0.1.5
     Chiu-Hsiang Hsu <wdv4758h@gmail.com>
     Rust Arch Linux package packer
 
@@ -72,42 +72,49 @@ Usage
 .. code-block:: sh
 
     $ cargo arch
-    ==> Making package: cargo-arch 0.1.4-1 (Sat 07 Dec 2019 09:53:39 PM CST)
+    ==> Making package: cargo-arch 0.1.5-1 (Tue 10 May 2022 03:46:55 PM CST)
     ==> Checking runtime dependencies...
     ==> Checking buildtime dependencies...
     ==> Retrieving sources...
     ==> Extracting sources...
     ==> Starting pkgver()...
-    ==> Updated version: cargo-arch 0.1.4.r0.gc93e08e-1
+    ==> Updated version: cargo-arch 0.1.5.r0.g21098bb-1
     ==> Removing existing $pkgdir/ directory...
     ==> Starting build()...
-       Compiling proc-macro2 v1.0.6
-       Compiling unicode-xid v0.2.0
-       Compiling syn v1.0.11
-       Compiling libc v0.2.66
-       Compiling bitflags v1.2.1
-       Compiling serde v1.0.103
-       Compiling anyhow v1.0.25
-       Compiling unicode-width v0.1.7
-       Compiling vec_map v0.8.1
-       Compiling strsim v0.8.0
-       Compiling ansi_term v0.11.0
-       Compiling yaml-rust v0.3.5
-       Compiling textwrap v0.11.0
-       Compiling quote v1.0.2
-       Compiling atty v0.2.13
-       Compiling clap v2.33.0
-       Compiling serde_derive v1.0.103
-       Compiling toml v0.5.5
-       Compiling cargo-arch v0.1.4 (/home/user/cargo-arch)
-        Finished release [optimized] target(s) in 36.00s
     ==> Entering fakeroot environment...
     ==> Starting package()...
-      Installing cargo-arch v0.1.4 (/home/user/cargo-arch)
+      Installing cargo-arch v0.1.5 (/home/user/cargo-arch)
         Updating crates.io index
-        Finished release [optimized] target(s) in 4.36s
+       Compiling proc-macro2 v1.0.38
+       Compiling unicode-xid v0.2.3
+       Compiling syn v1.0.93
+       Compiling version_check v0.9.4
+       Compiling autocfg v1.1.0
+       Compiling libc v0.2.125
+       Compiling serde_derive v1.0.137
+       Compiling serde v1.0.137
+       Compiling anyhow v1.0.57
+       Compiling hashbrown v0.11.2
+       Compiling os_str_bytes v6.0.0
+       Compiling heck v0.4.0
+       Compiling textwrap v0.15.0
+       Compiling termcolor v1.1.3
+       Compiling strsim v0.10.0
+       Compiling lazy_static v1.4.0
+       Compiling bitflags v1.3.2
+       Compiling proc-macro-error-attr v1.0.4
+       Compiling proc-macro-error v1.0.4
+       Compiling indexmap v1.8.1
+       Compiling clap_lex v0.2.0
+       Compiling quote v1.0.18
+       Compiling atty v0.2.14
+       Compiling clap_derive v3.1.7
+       Compiling clap v3.1.17
+       Compiling toml v0.5.9
+       Compiling cargo-arch v0.1.5 (/home/user/cargo-arch)
+        Finished release [optimized] target(s) in 27.85s
       Installing /home/user/cargo-arch/pkg/cargo-arch/usr/bin/cargo-arch
-       Installed package `cargo-arch v0.1.4 (/home/user/cargo-arch)` (executable `cargo-arch`)
+       Installed package `cargo-arch v0.1.5 (/home/user/cargo-arch)` (executable `cargo-arch`)
     warning: be sure to add `/home/user/cargo-arch/pkg/cargo-arch/usr/bin` to your PATH to be able to run the installed binaries
     ==> Tidying install...
       -> Removing libtool files...
@@ -122,7 +129,8 @@ Usage
       -> Generating .MTREE file...
       -> Compressing package...
     ==> Leaving fakeroot environment.
-    ==> Finished making: cargo-arch 0.1.4.r0.gc93e08e-1 (Sat 07 Dec 2019 09:54:21 PM CST)
+    ==> Finished making: cargo-arch 0.1.5.r0.g21098bb-1 (Tue 10 May 2022 03:47:24 PM CST)
+
 
 
 
@@ -156,6 +164,17 @@ Changelog
 
 Not Implemented Yet (Plan)
 ------------------------------
+
+
+v0.1.5 (2022-05-10)
+------------------------------
+
+* a lot of dependencies update, drop YAML CLI setup
+* update Rust edition from 2018 to 2021
+* fix #16 by moving the filling of serde's defaults from CargoMetadata to CargoArch (thanks @zraktvor)
+* Leave build() empty in order to not build the crate twice (thanks @gkaklas)
+* Use --no-track flag to avoid installing .crates.toml and .crates2.json (thanks @gkaklas)
+* ensure that the defaults of the arch section are populated (thanks @cardoe)
 
 
 v0.1.4 (2019-12-07)

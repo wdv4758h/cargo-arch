@@ -372,13 +372,13 @@ mod tests {
     const TEST_CONFIG: &str = r#"
         [package]
         name = "cargo-arch"
-        version = "0.1.4"
+        version = "0.1.5"
         authors = ["Chiu-Hsiang Hsu <wdv4758h@gmail.com>"]
         license = "Apache-2.0"
         readme = "README.rst"
         description = "Rust Arch Linux package packer"
         repository = "https://github.com/wdv4758h/cargo-arch/"
-        edition = "2018"
+        edition = "2021"
         keywords = ["cargo", "package"]
     "#;
 
@@ -393,13 +393,13 @@ mod tests {
     const TEST_CONFIG_DEB: &str = r#"
         [package]
         name = "cargo-arch"
-        version = "0.1.4"
+        version = "0.1.5"
         authors = ["Chiu-Hsiang Hsu <wdv4758h@gmail.com>"]
         license = "Apache-2.0"
         readme = "README.rst"
         description = "Rust Arch Linux package packer"
         repository = "https://github.com/wdv4758h/cargo-arch/"
-        edition = "2018"
+        edition = "2021"
         keywords = ["cargo", "package"]
 
         [package.metadata.deb]
