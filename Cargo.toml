@@ -10,9 +10,9 @@ edition = "2021"
 keywords = ["cargo", "package"]
 
 [dependencies]
-anyhow = "1.0.56"
-clap = { version = "3.1.10", features = ["derive"] }
-serde = { version = "1.0.136", features = ["std", "derive"] }
+anyhow = "1.0.57"
+clap = { version = "3.1.17", features = ["derive"] }
+serde = { version = "1.0.137", features = ["std", "derive"] }
 toml = "0.5.9"
 
 [package.metadata.arch]
