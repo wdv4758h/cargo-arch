@@ -30,17 +30,6 @@ From GitHub
     $ cargo install --git https://github.com/wdv4758h/cargo-arch
 
 
-Download Prebuilt Binary
-
-.. code-block:: sh
-
-    # by curl
-    $ curl -O -J -L https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.5/cargo-arch-v0.1.5-x86_64-unknown-linux-gnu.tar.gz
-
-    # by wget
-    $ wget https://github.com/wdv4758h/cargo-arch/releases/download/v0.1.5/cargo-arch-v0.1.5-x86_64-unknown-linux-gnu.tar.gz
-
-
 
 Usage
 ========================================
